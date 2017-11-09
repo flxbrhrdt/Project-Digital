@@ -27,27 +27,13 @@ while not done:
     pygame.event.pump()
 
 def choose_option():
-    return 4
-
-def fake_keydown():
-    """ creates a key.down output for the game script """
-    if choose_option() == 1:
-        simulate_keypress('1')
-    elif choose_option() == 2:
-        simulate_keypress('2')
-    elif choose_option() == 3:
-        simulate_keypress('3')
-    elif choose_option() == 4:
-        simulate_keypress('4')
-    if choose_option() == 5:
-        simulate_keypress('5')
-    else:
-        simulate_keypress('3')
-    pass
+    """choose the the best option """
+    best_option = 2
+    return str(best_option)
 
 def simulate_keypress(keypress):
-    """simulates keypress """
+    """simulates keypress"""
     keyboard.press(keypress)
     keyboard.release(keypress)
 
-fake_keydown()
+simulate_keypress(choose_option())
