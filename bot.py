@@ -26,9 +26,8 @@ while not done:
             done = True
     pygame.event.pump()
 
-<<<<<<< HEAD
 
-# #Keyboard input for bot, to control it before completing calculations (if we want to implement this instead of mouse click). Can be completed after structure of matrix is set. 
+# #Keyboard input for bot, to control it before completing calculations (if we want to implement this instead of mouse click). Can be completed after structure of matrix is set.
 # for event in pygame.event.get():
 #         if event.type == KEYDOWN:
 #             if event.key == K_1:
@@ -41,7 +40,6 @@ while not done:
 #                 #place in fourth column of matrix, set 0 in lowest row within column to 2
 #             if event.key == K_5:
 #                 #place in fifth column of matrix, set 0 in lowest row within column to 2
-=======
 def choose_option():
     """choose the the best option """
     best_option = 2
@@ -53,4 +51,3 @@ def simulate_keypress(keypress):
     keyboard.release(keypress)
 
 simulate_keypress(choose_option())
->>>>>>> 9818bb2d572371f34b2c3caa4820f7a1d2ddfdaa
