@@ -35,9 +35,10 @@ def winning(matrix, connect):
         for i in range(len(a)-connect+1):
             if a[i] == a[i++1] == a[i+2] and a[i] !=0:
                 return True, a[i]
-
     #tie
-    #print(a)
+    if numpy.count_nonzero(arrayM) == rows*columns:
+        return True, 0
+    #if not won
     return False, 0
 
 def scoring(matrix, connect):
@@ -68,5 +69,5 @@ def scoring(matrix, connect):
         score = 10
     return score
 
-a = numpy.matrix('0 0 0 0 0; 0 0 0 0 0; 0 0 0 0 1; 0 0 0 1 0; 0 0 1 0 0')
+a = numpy.matrix('1 2 3 4; 5 6 7 8; 9 10 11 0')
 print(winning(a,3))
