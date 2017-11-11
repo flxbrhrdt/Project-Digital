@@ -14,6 +14,22 @@ pygame.init()
 #
 #     def draw():
 
+def createboard(rows,columns):
+    row_size = ''
+    for rows in range(rows):
+        if rows == 0:
+            row_size = row_size + '0'
+        else:
+            row_size = row_size + ',0'
+    fullmatrix = ''
+    for cols in range(columns):
+        if cols == 0:
+            fullmatrix = fullmatrix + row_size
+        else:
+            fullmatrix = fullmatrix + '; ' + row_size
+    return fullmatrix
+
+
 board = numpy.matrix('0,0,0,0,0; 0,0,0,0,0; 0,0,0,0,0; 0,0,0,0,0')
 print(board)
 
