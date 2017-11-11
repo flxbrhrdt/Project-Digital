@@ -21,14 +21,14 @@ def winning(matrix, connect):
         longer = rows
     else:
         longer = columns
-    #diagonal top to bottom
+    #diagonal
     arrayM = numpy.asarray(matrix)
     for x in range(longer-1):
         a = numpy.diagonal(arrayM,x-(rows-connect+1))
         for i in range(len(a)-connect+1):
             if a[i] == a[i++1] == a[i+2] and a[i] !=0:
                 return True, a[i]
-    #diagonal bottom to top
+    #reverse diagonal
     arrayM = numpy.asarray(numpy.fliplr(matrix))
     for x in range(longer-1):
         a = numpy.diagonal(arrayM,x-(rows-connect+1))
@@ -46,28 +46,40 @@ def scoring(matrix, connect):
     columns = matrix.shape[1]
     a = winning(matrix, connect)[0]
     score = 0
-    if a == False:
+    if a == True:
+        score = 15
+    else:
         #horizontal
         for x in range(rows):
             for y in range(columns-1):
                 if matrix[x,y] == matrix[x,y+1] and matrix[x,y] != 0:     #add another == for Connect 4
                     score += 3
-            if score == 0:
-                for y in range(columns):
-                    if matrix[x,y] != 0:
-                        score += 0
         #vertical
         for y in range(columns):
             for x in range(rows-1):
                 if matrix[x,y] == matrix[x+1,y] and matrix[x,y] != 0:     #add another == for Connect 4
                     score += 3
-            if score == 0:
-                for x in range(rows):
-                        if matrix[x,y] != 0:
-                            score += 0
-    elif a == True:
-        score = 10
+        #determines which side is longer for diagonal search
+        if rows>columns:
+            longer = rows
+        else:
+            longer = columns
+        #diagonal
+        arrayM = numpy.asarray(matrix)
+        for x in range(longer-1):
+            a = numpy.diagonal(arrayM,x-(rows-connect+1))
+            for i in range(len(a)-connect+1):
+                if a[i] == a[i++1] and a[i] !=0:
+                    score +=3
+        #reverse diagonal
+        arrayM = numpy.asarray(numpy.fliplr(matrix))
+        for x in range(longer-1):
+            a = numpy.diagonal(arrayM,x-(rows-connect+1))
+            for i in range(len(a)-connect+1):
+                if a[i] == a[i++1] == a[i+2] and a[i] !=0:
+                    score +=3
+
     return score
 
-a = numpy.matrix('1 2 3 4; 5 6 7 8; 9 10 11 0')
-print(winning(a,3))
+a = numpy.matrix('1 1 1 0; 0 0 0 0; 0 0 0 0')
+print(scoring(a,3))
