@@ -42,7 +42,7 @@ def createboard(rows,columns):
 board = numpy.matrix('0,0,0,0,0; 0,0,0,0,0; 0,0,0,0,0; 0,0,0,0,0')
 print(board)
 
-player = 1
+player = 0
 
 def look_through_rows(board, column, player):
     count = 3
@@ -66,33 +66,28 @@ while running:
 
     for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
+                if player == 0:
+                    player = 1
+                elif player == 1:
+                    player = 2
+                elif player == 2:
+                    player = 1
                 if event.key == pygame.K_1:
                     look_through_rows(board, 0, player)
                     print(board)
-
-    for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_2:
                     look_through_rows(board, 1, player)
                     print(board)
-
-    for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_3:
                     look_through_rows(board, 2, player)
                     print(board)
-
-    for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_4:
                     look_through_rows(board, 3, player)
                     print(board)
-
-    for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_5:
                     look_through_rows(board, 4, player)
                     print(board)
+
 pygame.quit()
             # if event.key == K_2:
             #     #place in second column of matrix, set 0 in lowest row within column to 1
