@@ -5,6 +5,15 @@ import sys
 import numpy
 pygame.init()
 
+
+background_color = (255,255,255)
+width, height = 640, 480
+
+"""Bunch of variables"""
+screen = pygame.display.set_mode((width, height))
+pygame.display.set_caption('Connect 4')
+
+
 #Enter classes
 # class player(object):
 #
@@ -46,16 +55,21 @@ def look_through_rows(board, column, player):
             count = count - 1
     return board
 
-look_through_rows(board)
-
 
 
 #Keyboard input for player. Can be completed after structure of matrix is set.
-for event in pygame.event.get():
-        if event.type == KEYDOWN:
-            if event.key == K_1:
-                look_through_rows(board, 0, player)
-            #
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_1:
+                    look_through_rows(board, 0, player)
+                    print(board)
+pygame.quit()
             # if event.key == K_2:
             #     #place in second column of matrix, set 0 in lowest row within column to 1
             # if event.key == K_3:
