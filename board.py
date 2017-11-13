@@ -1,5 +1,6 @@
 import pygame
 
+
 WINDOW_DIMENSIONS = (800, 800)  # Width and height of the pygame window
 
 class Board:
