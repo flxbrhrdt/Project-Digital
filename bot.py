@@ -40,24 +40,22 @@ def minimax(node, depth, myTurn, matrix, connect):
     """Evaluation of scores and nodes to pick the best move.
     Takes depth, boolean of myTurn, matrix of the playing field, and # to connect.
     Returns an """
-    if depth == 0 or node is terminal
-        return scoring(matrix, connect)
+    if depth == 0: # or node is terminal
+        a = scoring(matrix, connect, myTurn)
     if myTurn:
-        bestValue =
+        #bestValue = -10
+        for child in range(node):
+            #place piece in column child
+            v = minimax(child, depth-1, FALSE)
+            #bestValue =
+        return v
     else:
-
-05         bestValue := −∞
-06         for each child of node
-07             v := minimax(child, depth − 1, FALSE)
-08             bestValue := max(bestValue, v)
-09         return bestValue
-
-10     else    (* minimizing player *)
-11         bestValue := +∞
-12         for each child of node
-13             v := minimax(child, depth − 1, TRUE)
-14             bestValue := min(bestValue, v)
-15         return bestValue
+        #bestValue = 10
+        for child in range(node)
+            #place piece in column child
+            v = minimax(child, depth-1, TRUE)
+            #bestValue =
+        return v
 
 def choose_option(options={3:100}):
     """choose the the highest value
