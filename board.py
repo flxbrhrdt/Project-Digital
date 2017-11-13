@@ -23,3 +23,30 @@ class Board:
         self.COUNT2 = 0  # player 2 moves
 
         self.PLAYERS = (p1, p2)
+
+
+def placePiece(board, column, piece):
+    if board[column] == ' ':
+        lowestOpenRow = column
+        for i in range(4):
+            if board[column + (5 * i)] == ' ':
+                lowestOpenRow = i
+        board[lowestOpenRow * 5 + column] = piece
+        return board
+    else:
+        return board
+
+def printBoard(board):
+    for i in range(len(board)):
+        if board[i] == player1:
+            board[count,column] == 1
+        elif board[i] == player2:
+            board[count,column] == 2
+
+def getOpenSpaces(board):
+    openSpaces = 0
+    for space in board:
+        if space == ' ':
+            openSpaces += 1
+
+    return openSpaces
