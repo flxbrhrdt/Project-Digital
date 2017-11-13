@@ -71,6 +71,11 @@ def winning(matrix, connect):
         for i in range(len(a)-connect+1):
             if a[i] == a[i++1] == a[i+2] and a[i] !=0:
                 return True, a[i]
+    if numpy.count_nonzero(arrayM) == rows*columns:
+        return True, 0
+        #if not won
+    return False, 0
+
 
 
 board = numpy.matrix('0,0,0,0,0; 0,0,0,0,0; 0,0,0,0,0; 0,0,0,0,0')
@@ -103,9 +108,7 @@ while running:
     if pygame.time.get_ticks() > (Time + 10):
         Time = pygame.time.get_ticks()
         win = winning(board,3)
-        if win == None:
-            pass
-        elif win[0] == True:
+        if win[0] == True:
             running = False
             endscreen = True
     for event in pygame.event.get():
