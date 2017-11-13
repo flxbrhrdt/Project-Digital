@@ -7,12 +7,36 @@ pygame.init()
 
 
 background_color = (255,255,255)
+WINDOW_DIMENSIONS = (640, 480)
 width, height = 640, 480
 
 """Bunch of variables"""
 screen = pygame.display.set_mode((width, height))
 screen.fill(background_color)
 pygame.display.set_caption('Connect 4')
+
+
+class Board:
+    def __init__(self, p1, p2, piecesize=100):
+
+        width, height = 5, 4
+
+        self.PIECESIZE = piecesize
+        self.BOARDWIDTH = width*piecesize
+        self.BOARDHEIGHT = height*piecesize
+        self.WIDTH = width
+        self.HEIGHT = height
+        self.COLOR = (0, 0, 255)
+        self.XMARG = (WINDOW_DIMENSIONS[0] - self.BOARDWIDTH) // 2
+        self.YMARG = WINDOW_DIMENSIONS[1] // 4
+        self.RECT = pygame.Rect(self.XMARG, self.YMARG,
+                                self.BOARDWIDTH, self.BOARDHEIGHT)
+        self.TURN = 0
+
+        self.COUNT1 = 0  # player 1 moves
+        self.COUNT2 = 0  # player 2 moves
+
+        self.PLAYERS = (p1, p2)
 
 
 #Enter classes
@@ -102,8 +126,9 @@ def look_through_rows(board, column, player):
 #Keyboard input for player. Can be completed after structure of matrix is set.
 running = True
 while running:
+    screen.fill((255, 255, 255)) #set up background
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        if event.type == pygame.QUIt or pygame.key.get_pressed()[K_ESCAPE]:
             running = False
     if pygame.time.get_ticks() > (Time + 10):
         Time = pygame.time.get_ticks()
