@@ -38,16 +38,6 @@ class Board:
 
         self.PLAYERS = (p1, p2)
 
-
-#Enter classes
-# class player(object):
-#
-#     def __init__():
-#
-#     def __repr__():
-#
-#     def draw():
-
 def createboard(rows,columns):
     row_size = ''
     for rows in range(rows):
@@ -184,11 +174,3 @@ while endscreen:
     pygame.display.update()
 
 pygame.quit()
-            # if event.key == K_2:
-            #     #place in second column of matrix, set 0 in lowest row within column to 1
-            # if event.key == K_3:
-            #     #place in third column of matrix, set 0 in lowest row within column to 1
-            # if event.key == K_4:
-            #     #place in fourth column of matrix, set 0 in lowest row within column to 1
-            # if event.key == K_5:
-            #     #place in fifth column of matrix, set 0 in lowest row within column to 1
