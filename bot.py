@@ -48,14 +48,17 @@ def minimax(node, depth, myTurn, matrix, connect):
             #place piece in column child
             v = minimax(child, depth-1, FALSE)
             #bestValue =
-        return v
+        return (v, child)
     else:
         #bestValue = 10
-        for child in range(node)
+        for child in range(node):
             #place piece in column child
             v = minimax(child, depth-1, TRUE)
             #bestValue =
-        return v
+        return (v, child)
+
+a = numpy.matrix('0 0 0 0; 0 0 0 0; 0 0 0 0')
+print(minimax(4, 2, True, a, 3))
 
 def choose_option(options={3:100}):
     """choose the the highest value
