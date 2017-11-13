@@ -43,7 +43,7 @@ def minimax(node, depth, myTurn, matrix, connect):
     if depth == 0 or node is terminal
         return scoring(matrix, connect)
     if myTurn:
-        bestValue = 
+        bestValue =
     else:
 
 05         bestValue := −∞
@@ -59,9 +59,12 @@ def minimax(node, depth, myTurn, matrix, connect):
 14             bestValue := min(bestValue, v)
 15         return bestValue
 
-def choose_option():
-    """choose the the best option """
-    best_option = 2
+def choose_option(options={3:100}):
+    """choose the the highest value
+    return the key (branch) of the maximum value (score)
+    if no option given, choose the middle column(3)
+    """
+    best_option = max(options, key=options.get)
     return str(best_option)
 
 def simulate_keypress(keypress):
