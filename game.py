@@ -7,6 +7,7 @@ pygame.init()
 
 
 background_color = (255,255,255)
+WINDOW_DIMENSIONS = (640, 480)
 width, height = 640, 480
 
 """Bunch of variables"""
