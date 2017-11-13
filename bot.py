@@ -1,7 +1,7 @@
 import pygame
 import sys
 from pynput.keyboard import Key, Controller
-from winning.py import *
+from winning import *
 keyboard = Controller()
 
 pygame.init()
@@ -40,25 +40,32 @@ def minimax(node, depth, myTurn, matrix, connect):
     """Evaluation of scores and nodes to pick the best move.
     Takes depth, boolean of myTurn, matrix of the playing field, and # to connect.
     Returns an """
+    print('hello')
     if depth == 0: # or node is terminal
+        print("a")
         a = scoring(matrix, connect, myTurn)
-    if myTurn:
+        return a
+    elif myTurn:
         #bestValue = -10
         for child in range(node):
             #place piece in column child
-            v = minimax(child, depth-1, FALSE)
+            print('myTurn')
+            v = minimax(child, depth-1, False, matrix, connect)
             #bestValue =
-        return (v, child)
-    else:
+            return (v, child)
+    elif not myTurn:
         #bestValue = 10
         for child in range(node):
             #place piece in column child
-            v = minimax(child, depth-1, TRUE)
+            print('not myTurn')
+            v = minimax(child, depth-1, True, matrix, connect)
             #bestValue =
-        return (v, child)
+            return (v, child)
+    else:
+        return 'Sad'
 
-a = numpy.matrix('0 0 0 0; 0 0 0 0; 0 0 0 0')
-print(minimax(4, 2, True, a, 3))
+a = numpy.matrix('0 1 0 1; 0 1 0 0; 0 0 0 0')
+print(minimax(4, 4, True, a, 3))
 
 def choose_option(options={3:100}):
     """choose the the highest value
