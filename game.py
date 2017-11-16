@@ -117,9 +117,6 @@ def look_through_rows(board, column, player):
 running = True
 while running:
     screen.fill((255, 255, 255)) #set up background
-    for event in pygame.event.get():
-        if event.type == pygame.QUIt or pygame.key.get_pressed()[K_ESCAPE]:
-            running = False
     if pygame.time.get_ticks() > (Time + 10):
         Time = pygame.time.get_ticks()
         win = winning(board,3)
