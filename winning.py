@@ -82,4 +82,4 @@ def scoring(matrix, connect):
     return score
 
 a = numpy.matrix('1 1 1 0; 0 0 0 0; 0 0 0 0')
-print(scoring(a,3))
+# print(scoring(a,3))
