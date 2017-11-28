@@ -28,28 +28,26 @@ def minimax(node, depth, myTurn, matrix, connect=3):
     Takes depth, boolean of myTurn, matrix of the playing field, and # to connect.
     Returns an """
     if depth == 0 or winning(matrix)[0]:
-        print("a")
         a = scoring(matrix, connect, myTurn)
-        print(matrix)
-        print('depth' + str(depth))
+        # print(matrix)
+        # print('depth' + str(depth))
         return a
     elif myTurn:
         #bestValue = -10
-        for child in range(node):
+        # for child in range(node):
             #place piece in column child
-            print('child'+str(child), ', depth' + str(depth), ', myTurn')
-            print(' ')
-            v = minimax(child, depth-1, False, matrix, connect)
+        print('depth' + str(depth), ', myTurn')
+        v = [minimax(0, depth-1, True, matrix, connect), minimax(1, depth-1, False, matrix, connect), minimax(2, depth-1, True, matrix, connect), minimax(3, depth-1, True, matrix, connect)]
             #bestValue
-            # return (v, child)
+        return v
     elif not myTurn:
         #bestValue = 10
-        for child in range(node):
+        # for child in range(node):
             #place piece in column child
-            print('child'+str(child), ', depth' + str(depth), ', not myTurn')
-            v = minimax(child, depth-1, True, matrix, connect)
+        print('depth' + str(depth), ', not myTurn')
+        v = [minimax(0, depth-1, True, matrix, connect), minimax(1, depth-1, True, matrix, connect), minimax(2, depth-1, True, matrix, connect), minimax(3, depth-1, True, matrix, connect)]
             #bestValue =
-            #return (v, child)
+        return v
     else:
         return 'Sad'
 
@@ -69,4 +67,4 @@ def simulate_keypress(keypress):
     keyboard.press(keypress)
     keyboard.release(keypress)
 
-simulate_keypress(choose_option())
+# simulate_keypress(choose_option())
