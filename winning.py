@@ -99,10 +99,9 @@ def scoring(matrix, connect, myTurn):
     elif myTurn:
         return score2
 
-<<<<<<< HEAD
+
 a = numpy.matrix('1 1 1 0; 0 0 0 0; 0 0 0 0')
 # print(scoring(a,3))
-=======
+
 a = numpy.matrix('1 0 1 0; 2 0 2 0; 0 0 2 0')
 print(scoring(a,3, True))
->>>>>>> 92595f9aaa525ec794236417bd42a7589beca679

@@ -23,19 +23,6 @@ pygame.init()
 #    pygame.event.pump()
 
 
-# #Keyboard input for bot, to control it before completing calculations (if we want to implement this instead of mouse click). Can be completed after structure of matrix is set.
-# for event in pygame.event.get():
-#         if event.type == KEYDOWN:
-#             if event.key == K_1:
-#                 #place in first column of matrix, set 0 in lowest row within column to 2
-#             if event.key == K_2:
-#                 #place in second column of matrix, set 0 in lowest row within column to 2
-#             if event.key == K_3:
-#                 #place in third column of matrix, set 0 in lowest row within column to 2
-#             if event.key == K_4:
-#                 #place in fourth column of matrix, set 0 in lowest row within column to 2
-#             if event.key == K_5:
-#                 #place in fifth column of matrix, set 0 in lowest row within column to 2
 def minimax(node, depth, myTurn, matrix, connect=3):
     """Evaluation of scores and nodes to pick the best move.
     Takes depth, boolean of myTurn, matrix of the playing field, and # to connect.
@@ -50,20 +37,16 @@ def minimax(node, depth, myTurn, matrix, connect=3):
         #bestValue = -10
         for child in range(node):
             #place piece in column child
-            print('child'+str(child))
-            print('myTurn')
-            print('depth' + str(depth))
+            print('child'+str(child), ', depth' + str(depth), ', myTurn')
+            print(' ')
             v = minimax(child, depth-1, False, matrix, connect)
-            #bestValue =
-            print('hi')
+            #bestValue
             # return (v, child)
     elif not myTurn:
         #bestValue = 10
         for child in range(node):
             #place piece in column child
-            print('child'+str(child))
-            print('not myTurn')
-            print('depth' + str(depth))
+            print('child'+str(child), ', depth' + str(depth), ', not myTurn')
             v = minimax(child, depth-1, True, matrix, connect)
             #bestValue =
             #return (v, child)
