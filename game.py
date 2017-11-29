@@ -17,15 +17,15 @@ pygame.display.set_caption('Connect 4')
 
 
 class Board:
-    def __init__(self, p1, p2, piecesize=100):
+    def __init__(self, matrix, piecesize=100):
 
         width, height = 5, 4
 
         self.PIECESIZE = piecesize
         self.BOARDWIDTH = width*piecesize
         self.BOARDHEIGHT = height*piecesize
-        self.WIDTH = width
-        self.HEIGHT = height
+        self.width = width
+        self.height = height
         self.COLOR = (0, 0, 255)
         self.XMARG = (WINDOW_DIMENSIONS[0] - self.BOARDWIDTH) // 2
         self.YMARG = WINDOW_DIMENSIONS[1] // 4
@@ -36,7 +36,33 @@ class Board:
         self.COUNT1 = 0  # player 1 moves
         self.COUNT2 = 0  # player 2 moves
 
-        self.PLAYERS = (p1, p2)
+
+        self.width = width
+        self.height = height
+        self.matrix = matrix
+
+        #self.PLAYERS = (p1, p2)2
+
+    def draw(self, screen):
+        # Drawing the borders
+        for x in range(0, self.width * 100, 100):
+            for y in range(0, self.height * 100, 100):
+                rectangle =(x,y, 100, 100)
+                #print("Drawing x, y : ", x, y)
+                pygame.draw.rect(screen, (0,0,255), rectangle, 5)
+
+        #drawing the chips
+        for x in range(self.width):
+            for y in range(self.height):
+                pos = (x *100 + 50 , y *100 + 50)
+
+                if self.matrix[y,x] == 1:
+                    color = (255, 255, 0)   # yellow
+                elif self.matrix[y, x] == 2:
+                    color = (255, 0, 0)     # red
+                else:
+                    continue
+                pygame.draw.circle(screen, color , pos, 40)
 
 def createboard(rows,columns):
     row_size = ''
@@ -90,10 +116,17 @@ def winning(matrix, connect):
         #if not won
     return False, 0
 
-
+pygame.init()
 
 board = numpy.matrix('0,0,0,0,0; 0,0,0,0,0; 0,0,0,0,0; 0,0,0,0,0')
 print(board)
+
+# Initialise images (save images to folder)
+#background = pygame.image.load('connect4Board.png').convert_alpha()
+#redPiece = pygame.image.load('redPiece.png').convert_alpha()
+#yellowPiece = pygame.image.load('yellowPiece.png').convert_alpha()
+
+
 
 player = 0
 Time = 0
@@ -113,10 +146,15 @@ def look_through_rows(board, column, player):
 
 
 
+
 #Keyboard input for player. Can be completed after structure of matrix is set.
 running = True
 while running:
     screen.fill((255, 255, 255)) #set up background
+    #screen.blit(background, (0,0))
+    boardC = Board(matrix = board)
+    boardC.draw(screen)
+    pygame.display.update()
     if pygame.time.get_ticks() > (Time + 10):
         Time = pygame.time.get_ticks()
         win = winning(board,3)
@@ -146,7 +184,8 @@ while running:
                 if event.key == pygame.K_5:
                     look_through_rows(board, 4, player)
                     print(board)
-
+                boardC.draw(screen)
+                pygame.display.update()
 
 while endscreen:
 
