@@ -36,42 +36,36 @@ pygame.init()
 #                 #place in fourth column of matrix, set 0 in lowest row within column to 2
 #             if event.key == K_5:
 #                 #place in fifth column of matrix, set 0 in lowest row within column to 2
+
 def minimax(node, depth, myTurn, matrix, connect=3):
     """Evaluation of scores and nodes to pick the best move.
     Takes depth, boolean of myTurn, matrix of the playing field, and # to connect.
-    Returns an """
+    Returns an integer of score"""
+    gametree = [0]*(node)
+    print(gametree)
     if depth == 0 or winning(matrix)[0]:
         print("a")
         a = scoring(matrix, connect, myTurn)
         print(matrix)
         print('depth' + str(depth))
-        return a
+        return 1
     elif myTurn:
         #bestValue = -10
         for child in range(node):
-            #place piece in column child
-            print('child'+str(child))
-            print('myTurn')
-            print('depth' + str(depth))
-            v = minimax(child, depth-1, False, matrix, connect)
-            #bestValue =
-            print('hi')
-            # return (v, child)
+            #place piece?
+            print(child, myTurn)
+            gametree[child-1] = minimax(node, depth-1, False, matrix, connect=3)
+            #bestValue = ...
     elif not myTurn:
-        #bestValue = 10
+        #bestValue = -10
         for child in range(node):
-            #place piece in column child
-            print('child'+str(child))
-            print('not myTurn')
-            print('depth' + str(depth))
-            v = minimax(child, depth-1, True, matrix, connect)
-            #bestValue =
-            #return (v, child)
-    else:
-        return 'Sad'
-
+            #place piece?
+            print(child, myTurn, node)
+            #bestValue = ...
+            gametree[child-1] = minimax(node, depth-1, True, matrix, connect=3)
+    return gametree
 a = numpy.matrix('0 1 0 1; 0 0 0 0; 0 0 0 0')
-print(minimax(4, 4, True, a))
+print(minimax(4, 3, True, a))
 
 def choose_option(options={3:100}):
     """choose the the highest value
