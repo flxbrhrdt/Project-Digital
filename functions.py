@@ -49,3 +49,14 @@ def winning(matrix, connect):
         return True, 0
         #if not won
     return False, 0
+
+def look_through_rows(board, column, player):
+    count = 3
+    count2 = 1
+    while count >= 0 and count2 == 1:
+        if board[count,column] == 0:
+            board[count,column] = player
+            count2 = count2 - 1
+        else:
+            count = count - 1
+    return board

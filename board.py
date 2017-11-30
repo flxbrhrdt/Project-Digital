@@ -1,53 +1,98 @@
 import pygame
+import numpy
+import functions
+import sys
 
 
-WINDOW_DIMENSIONS = (800, 800)  # Width and height of the pygame window
+pygame.init()
+
+background_color = (255,255,255)
+WINDOW_DIMENSIONS = (640, 480)
+width, height = 640, 480
+
+"""Bunch of variables"""
+screen = pygame.display.set_mode((width, height))
+screen.fill(background_color)
+pygame.display.set_caption('Connect 4')
 
 class Board:
-    def __init__(self, p1, p2, piecesize=100):
-
-        width, height = 5, 4
-
-        self.PIECESIZE = piecesize
-        self.BOARDWIDTH = width*piecesize
-        self.BOARDHEIGHT = height*piecesize
-        self.WIDTH = width
-        self.HEIGHT = height
-        self.COLOR = (0, 0, 255)
-        self.XMARG = (WINDOW_DIMENSIONS[0] - self.BOARDWIDTH) // 2
-        self.YMARG = WINDOW_DIMENSIONS[1] // 4
-        self.RECT = pygame.Rect(self.XMARG, self.YMARG,
-                                self.BOARDWIDTH, self.BOARDHEIGHT)
-        self.TURN = 0
-
-        self.COUNT1 = 0  # player 1 moves
-        self.COUNT2 = 0  # player 2 moves
-
-        self.PLAYERS = (p1, p2)
+    def __init__(self, rows, columns):
+        self.rows = rows
+        self.columns = columns
+        self.matrix = numpy.matrix(functions.createboard(self.rows,self.columns))
 
 
-def placePiece(board, column, piece):
-    if board[column] == ' ':
-        lowestOpenRow = column
-        for i in range(4):
-            if board[column + (5 * i)] == ' ':
-                lowestOpenRow = i
-        board[lowestOpenRow * 5 + column] = piece
-        return board
-    else:
-        return board
+gameboard = Board(5,4)
+#TODO add variability with board size
+print(gameboard.matrix)
 
-def printBoard(board):
-    for i in range(len(board)):
-        if board[i] == player1:
-            board[count,column] == 1
-        elif board[i] == player2:
-            board[count,column] == 2
+background_color = (255,255,255)
+width, height = 640, 480
 
-def getOpenSpaces(board):
-    openSpaces = 0
-    for space in board:
-        if space == ' ':
-            openSpaces += 1
+screen = pygame.display.set_mode((width, height))
+pygame.display.set_caption('Connect 3')
+screen.fill(background_color)
 
-    return openSpaces
+player = 0
+Time = 0
+endscreen = False
+win = functions.winning(gameboard.matrix,3)
+
+running = True
+
+while running:
+    pygame.display.update()
+    if pygame.time.get_ticks() > (Time + 10):
+        Time = pygame.time.get_ticks()
+        win = functions.winning(gameboard.matrix,3)
+        if win[0] == True:
+            running = False
+            endscreen = True
+    for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if player == 0:
+                    player = 1
+                elif player == 1:
+                    player = 2
+                elif player == 2:
+                    player = 1
+                if event.key == pygame.K_1:
+                    functions.look_through_rows(gameboard.matrix, 0, player)
+                    print(gameboard.matrix)
+                if event.key == pygame.K_2:
+                    print(gameboard.matrix)
+                    functions.look_through_rows(gameboard.matrix, 1, player)
+                if event.key == pygame.K_3:
+                    functions.look_through_rows(gameboard.matrix, 2, player)
+                    print(gameboard.matrix)
+                if event.key == pygame.K_4:
+                    functions.look_through_rows(gameboard.matrix, 3, player)
+                    print(gameboard.matrix)
+                if event.key == pygame.K_5:
+                    functions.look_through_rows(gameboard.matrix, 4, player)
+                    print(gameboard.matrix)
+                #TODO change the event keys to take in nay rows not just
+                # up to 5.
+                pygame.display.update()
+
+while endscreen:
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            quit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_q:
+                pygame.quit()
+                quit()
+
+        basicfont = pygame.font.SysFont(None, 20)
+        text = basicfont.render('Congrats! Player %.2d'%(win[1]) + ' Has Won', True, (0, 0, 0), (255, 255, 255))
+        textrect = text.get_rect()
+        textrect.centerx = screen.get_rect().centerx
+        textrect.centery = screen.get_rect().centery
+        screen.blit(text, textrect)
+
+    pygame.display.update()
+
+pygame.quit()
