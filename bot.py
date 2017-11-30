@@ -37,6 +37,7 @@ pygame.init()
 #             if event.key == K_5:
 #                 #place in fifth column of matrix, set 0 in lowest row within column to 2
 
+
 def minimax(node, depth, myTurn, matrix, connect=3):
     """Evaluation of scores and nodes to pick the best move.
     Takes depth, boolean of myTurn, matrix of the playing field, and # to connect.
@@ -44,7 +45,6 @@ def minimax(node, depth, myTurn, matrix, connect=3):
     gametree = [0]*(node)
     print(gametree)
     if depth == 0 or winning(matrix)[0]:
-        print("a")
         a = scoring(matrix, connect, myTurn)
         print(matrix)
         print('depth' + str(depth))
@@ -64,6 +64,7 @@ def minimax(node, depth, myTurn, matrix, connect=3):
             #bestValue = ...
             gametree[child-1] = minimax(node, depth-1, True, matrix, connect=3)
     return gametree
+
 a = numpy.matrix('0 1 0 1; 0 0 0 0; 0 0 0 0')
 print(minimax(4, 3, True, a))
 
@@ -80,4 +81,4 @@ def simulate_keypress(keypress):
     keyboard.press(keypress)
     keyboard.release(keypress)
 
-simulate_keypress(choose_option())
+# simulate_keypress(choose_option())
