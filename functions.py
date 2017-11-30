@@ -1,31 +1,51 @@
-def is_winnable(model, memo):
+def createboard(rows,columns):
+    row_size = ''
+    for rows in range(rows):
+        if rows == 0:
+            row_size = row_size + '0'
+        else:
+            row_size = row_size + ',0'
+    fullmatrix = ''
+    for cols in range(columns):
+        if cols == 0:
+            fullmatrix = fullmatrix + row_size
+        else:
+            fullmatrix = fullmatrix + '; ' + row_size
+    return fullmatrix
 
-    # memoized case
-    if model.board in memo:
-        return True
-
-    # base case
-    w = won(model)
-    if w == 1:
-        return True
-    if w == 2:
-        return False
-
-
-    # recursive case
-    options = range(0, 5)
-    for option in options:
-        new_model = model.move(1, option)
-        bools = [is_winnable(new_model.move(2, p_option), memo) for p_option in range(0, 5)]
-        if all(bools):
-            memo[model.board] = option
-            return True
-        # checking all(bools) assumes that the first player to move wins 100% of the time with optimal play on
-        # both sides. This might not be the case, but I'll leave figuring out what to do then up to you. Try first
-        # assuming this.
-    return False  # if there is no move which wins 100% of the time.
-
-
-def won(model):
-    # returns a 0 if no player has won, 1 if player 1 has won, or 2 for player 2
-    pass
+def winning(matrix, connect):
+    rows = matrix.shape[0]
+    columns = matrix.shape[1]
+    #horizontal
+    for x in range(rows):
+        for y in range(columns-connect+1):
+            if matrix[x,y] == matrix[x,y+1] == matrix[x,y+2] and matrix[x,y] != 0:     #add another == for Connect 4
+                return True, matrix[x,y]
+    #vertical
+    for y in range(columns):
+        for x in range(rows-connect+1):
+            if matrix[x,y] == matrix[x+1,y] == matrix[x+2,y] and matrix[x,y] != 0:     #add another == for Connect 4
+                return True, matrix[x,y]
+    #determines which side is longer for diagonal search
+    if rows>columns:
+        longer = rows
+    else:
+        longer = columns
+    #diagonal
+    arrayM = numpy.asarray(matrix)
+    for x in range(longer-1):
+        a = numpy.diagonal(arrayM,x-(rows-connect+1))
+        for i in range(len(a)-connect+1):
+            if a[i] == a[i++1] == a[i+2] and a[i] !=0:
+                return True, a[i]
+    #reverse diagonal
+    arrayM = numpy.asarray(numpy.fliplr(matrix))
+    for x in range(longer-1):
+        a = numpy.diagonal(arrayM,x-(rows-connect+1))
+        for i in range(len(a)-connect+1):
+            if a[i] == a[i++1] == a[i+2] and a[i] !=0:
+                return True, a[i]
+    if numpy.count_nonzero(arrayM) == rows*columns:
+        return True, 0
+        #if not won
+    return False, 0
