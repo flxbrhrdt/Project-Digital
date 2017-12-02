@@ -1,3 +1,6 @@
+#authors: Siena and Felix
+# Needed functions isLegalMove, makeMove
+#
 import pygame
 import sys
 from pynput.keyboard import Key, Controller
@@ -23,19 +26,6 @@ pygame.init()
 #    pygame.event.pump()
 
 
-# #Keyboard input for bot, to control it before completing calculations (if we want to implement this instead of mouse click). Can be completed after structure of matrix is set.
-# for event in pygame.event.get():
-#         if event.type == KEYDOWN:
-#             if event.key == K_1:
-#                 #place in first column of matrix, set 0 in lowest row within column to 2
-#             if event.key == K_2:
-#                 #place in second column of matrix, set 0 in lowest row within column to 2
-#             if event.key == K_3:
-#                 #place in third column of matrix, set 0 in lowest row within column to 2
-#             if event.key == K_4:
-#                 #place in fourth column of matrix, set 0 in lowest row within column to 2
-#             if event.key == K_5:
-#                 #place in fifth column of matrix, set 0 in lowest row within column to 2
 
 
 def minimax(node, depth, myTurn, matrix, connect=3):
@@ -68,13 +58,71 @@ def minimax(node, depth, myTurn, matrix, connect=3):
 a = numpy.matrix('0 1 0 1; 0 0 0 0; 0 0 0 0')
 print(minimax(4, 3, True, a))
 
+
+def search(self, depth, board, curr_player):
+        """ Search the tree until depth 'depth'
+            By default, the  is the board, and curr_player is whomever called this search
+            Return score
+        """
+        # enumerate all possible moves from this board
+        legal_moves = []
+        for i in range(7):
+            # if column i is a legal move
+            if isLegalMove(i, board):
+                # make the move in column i for curr_player
+                temp = makeMove(board, i, curr_player)
+                legal_moves.append(temp)
+
+        # BASECASE
+        # if depth == 0, game tied or someone wins
+        if depth == 0 or len(legal_moves) == 0 or winning(board):
+            return value(board, curr_player)
+
+        # determine opponent's color - PROBABLY NOT NECESSARY
+        if curr_player == self.colors[0]:
+            opp_player = self.colors[1]
+        else:
+            opp_player = self.colors[0]
+
+        # RECURSION
+        score = -99999999
+        for child in legal_moves:
+            if child == None:
+                print("child == None (search)")
+            score = max(score, -search(depth-1, child, opp_player))
+        return score
+
 def choose_option(options={3:100}):
     """choose the the highest value
     return the key (branch) of the maximum value (score)
     if no option given, choose the middle column(3)
     """
+
+    # enumerate all legal moves in a dict
+    # assign each move a score
+    possible_moves = {} # possible moves and their score values
+    for column in range(7):
+        # check if column i is a possible
+        if isLegalMove(col, board):
+            # make the move in column 'col' for curr_player
+            temp = makeMove(board, col, curr_player)
+            possible_moves[column] = -search(depth-1, temp, opp_player)
+    # --------------------------------------------------------------------
+    # go though dict find out the best option
+    best_score = -99999999
+    best_move = None
+    # process the dict for looping
+    options = legal_moves.items()
+    # random.shuffle(list(options))
+    # go through every possibility
+    for option, score in options:
+        if score >= best_score:
+            best_score = score
+            best_option = option
+    # OR:
     best_option = max(options, key=options.get)
     return str(best_option)
+
 
 def simulate_keypress(keypress):
     """simulates keypress"""
