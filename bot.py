@@ -1,6 +1,8 @@
 #authors: Siena and Felix
 # Needed functions isLegalMove, makeMove
+#new variables: board = matrix,
 #
+
 import pygame
 import sys
 from pynput.keyboard import Key, Controller
@@ -24,9 +26,6 @@ pygame.init()
 #            print("column1")
 #            done = True
 #    pygame.event.pump()
-
-
-
 
 def minimax(node, depth, myTurn, matrix, connect=3):
     """Evaluation of scores and nodes to pick the best move.
@@ -76,7 +75,8 @@ def search(self, depth, board, curr_player):
         # BASECASE
         # if depth == 0, game tied or someone wins
         if depth == 0 or len(legal_moves) == 0 or winning(board):
-            return value(board, curr_player)
+            # return value(board, curr_player)
+            return scoring(s, connect, myTurn)
 
         # determine opponent's color - PROBABLY NOT NECESSARY
         if curr_player == self.colors[0]:
