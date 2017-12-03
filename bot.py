@@ -123,6 +123,30 @@ def choose_option(options={3:100}):
     best_option = max(options, key=options.get)
     return str(best_option)
 
+def makeMove(column, board, myTurn, connect=3):
+    """
+    Input: the column, whose turn, and the matrix  
+    What: insert your coin in the column you chose
+    How: find the first empty (0) spot in the column and replace with your number
+    Output: the new board
+    """
+    pass
+
+    if connect == 3:
+        rows=4
+    else:
+        rows = 6
+    # check if it is my turn
+    if myTurn = True:
+        coin = 1
+    else:
+        coin = 2
+
+    board_temp = [x[:] for x in board]
+    for i in range(rows):
+        if board_temp[i][column] == 0:
+            board_temp[i][column] = coin
+            return board_temp
 
 def simulate_keypress(keypress):
     """simulates keypress"""
