@@ -58,24 +58,26 @@ a = numpy.matrix('0 1 0 1; 0 0 0 0; 0 0 0 0')
 print(minimax(4, 3, True, a))
 
 
-def search(self, depth, board, curr_player):
+def search(depth, board, myTurn):
         """ Search the tree until depth 'depth'
             By default, the  is the board, and curr_player is whomever called this search
             Return score
         """
+        rows = 4
         # enumerate all possible moves from this board
         legal_moves = []
-        for i in range(7):
+        for i in range(rows):
             # if column i is a legal move
-            if isLegalMove(i, board):
+            if isLegalMove(board, i):
                 # make the move in column i for curr_player
-                temp = makeMove(board, i, curr_player)
+                temp = makeMove(i, board, myTurn)
+                # create list of matrix
                 legal_moves.append(temp)
 
-        # BASECASE
-        # if depth == 0, game tied or someone wins
+        #TODO: CONSULTING
+        # BASECASE (if depth == 0, game tied or someone wins)
         if depth == 0 or len(legal_moves) == 0 or winning(board):
-            # return value(board, curr_player)
+            # return value(board, curr_player) from winning
             return scoring(s, connect, myTurn)
 
         # determine opponent's color - PROBABLY NOT NECESSARY
@@ -84,31 +86,47 @@ def search(self, depth, board, curr_player):
         # else:
         #     opp_player = self.colors[0]
 
+        #TODO: CONSULTING, how doe
         # RECURSION
         score = -99999999
         for child in legal_moves:
             if child == None:
                 print("child == None (search)")
+                # start recursion, check if minus is necessary
             score = max(score, -search(depth-1, child, opp_player))
+            # score negative or positive
         return score
 
-def choose_option(options={1: 3, 2: 6, 3: 100}):
+def choose_options(depth, board, myTurn):
     """
     INPUT: depth(integer), board(matrix), myTurn(boolean)
-    choose the the highest value
-    return the key (branch) of the maximum value (score)
-    if no option given, choose the middle column(3)
+
     OUTPUT: column (integer) were we should place our piece
     """
-    # enumerate all legal moves in a dict
-    # assign each move a score
-    possible_moves = {} # possible moves and their score values
-    for column in range(7):
+    rows = 4
+    possible_moves = {} # possible moves (key) and their scores (value)
+    for column in range(rows):
         # check if column i is a possible
         if isLegalMove(col, board):
             # make the move in column  for curr_player
-            temp = makeMove(board, col, curr_player)
+            temp = makeMove(column, board, curr_player)
+            # assign overall score (value, recurs function) to every column (key)
+            #TODO: CONSULTING
             possible_moves[column] = -search(depth-1, temp, opp_player)
+            # minus maybe has to stay depending on scoring implementation
+    # return the key(column) for the best score
+    return best_option(possible_moves)
+
+def best_option(options={1: 3, 2: 6, 3: 100}):
+    """
+    INPUT: options with score (dict)
+
+    choose the the highest value
+    return the key (branch) of the maximum value (score)
+    if no option given, choose the middle column(3)
+
+    OUTPUT: column (integer) were we should place our piece
+    """
     # find the best option (max score)
     best_option = max(possible_moves, key=options.get)
     return str(best_option)
