@@ -1,5 +1,5 @@
 #authors: Siena and Felix
-# Needed functions isLegalMove, makeMove
+# Needed functions isLegalMove
 #new variables: board = matrix,
 #
 
@@ -125,13 +125,14 @@ def choose_option(options={3:100}):
 
 def makeMove(column, board, myTurn, connect=3):
     """
-    Input: the column, whose turn, and the matrix  
+    Input: the column, whose turn, and the matrix
     What: insert your coin in the column you chose
     How: find the first empty (0) spot in the column and replace with your number
     Output: the new board
+    >>> makeMove(1, board, True)
+    [[0, 2, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
     """
-    pass
-
+    # adapt the number of rows to the game
     if connect == 3:
         rows=4
     else:
@@ -142,11 +143,21 @@ def makeMove(column, board, myTurn, connect=3):
     else:
         coin = 2
 
-    board_temp = [x[:] for x in board]
-    for i in range(rows):
-        if board_temp[i][column] == 0:
-            board_temp[i][column] = coin
-            return board_temp
+    # for nested lists ---------------
+    if isinstance(board,(list,)):
+        # board_temp = [x[:] for x in board]
+        board_temp = board
+        for i in range(rows):
+            if board_temp[i][column] == 0:
+                board_temp[i][column] = coin
+                return board_temp
+    # for matrix---------
+    else:
+        board_temp = board
+        for i in range(rows):
+            if board_temp[i, column] == 0:
+                board_temp[i, column] = coin
+                return board_temp
 
 def simulate_keypress(keypress):
     """simulates keypress"""
