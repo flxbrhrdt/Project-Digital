@@ -79,10 +79,10 @@ def search(self, depth, board, curr_player):
             return scoring(s, connect, myTurn)
 
         # determine opponent's color - PROBABLY NOT NECESSARY
-        if curr_player == self.colors[0]:
-            opp_player = self.colors[1]
-        else:
-            opp_player = self.colors[0]
+        # if curr_player == self.colors[0]:
+        #     opp_player = self.colors[1]
+        # else:
+        #     opp_player = self.colors[0]
 
         # RECURSION
         score = -99999999
@@ -92,40 +92,30 @@ def search(self, depth, board, curr_player):
             score = max(score, -search(depth-1, child, opp_player))
         return score
 
-def choose_option(options={3:100}):
-    """choose the the highest value
+def choose_option(options={1: 3, 2: 6, 3: 100}):
+    """
+    INPUT: depth(integer), board(matrix), myTurn(boolean)
+    choose the the highest value
     return the key (branch) of the maximum value (score)
     if no option given, choose the middle column(3)
+    OUTPUT: column (integer) were we should place our piece
     """
-
     # enumerate all legal moves in a dict
     # assign each move a score
     possible_moves = {} # possible moves and their score values
     for column in range(7):
         # check if column i is a possible
         if isLegalMove(col, board):
-            # make the move in column 'col' for curr_player
+            # make the move in column  for curr_player
             temp = makeMove(board, col, curr_player)
             possible_moves[column] = -search(depth-1, temp, opp_player)
-    # --------------------------------------------------------------------
-    # go though dict find out the best option
-    best_score = -99999999
-    best_move = None
-    # process the dict for looping
-    options = legal_moves.items()
-    # random.shuffle(list(options))
-    # go through every possibility
-    for option, score in options:
-        if score >= best_score:
-            best_score = score
-            best_option = option
-    # OR:
-    best_option = max(options, key=options.get)
+    # find the best option (max score)
+    best_option = max(possible_moves, key=options.get)
     return str(best_option)
 
 def makeMove(column, board, myTurn, connect=3):
     """
-    Input: the column, whose turn, and the matrix
+    Input: column (int), whose turn (boolean), and the board (matrix)
     What: insert your coin in the column you chose
     How: find the first empty (0) spot in the column and replace with your number
     Output: the new board
@@ -158,6 +148,19 @@ def makeMove(column, board, myTurn, connect=3):
             if board_temp[i, column] == 0:
                 board_temp[i, column] = coin
                 return board_temp
+
+def isLegalMove(board, column):
+    """
+    Input: board (matrix), column (int)
+    Check if there is a space left in the column
+    output: boolean"""
+    # loop through every row of a column
+    for i in range(rows):
+        if board[i, column] == 0:
+            # as soon as we find the first empty spot return True
+            return True
+    # if we iterated through all rows
+    return False
 
 def simulate_keypress(keypress):
     """simulates keypress"""
