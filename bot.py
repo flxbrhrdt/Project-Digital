@@ -4,6 +4,7 @@
 #
 
 import pygame
+import random
 import sys
 from pynput.keyboard import Key, Controller
 from winning import *
@@ -153,7 +154,6 @@ def makeMove(column, board, myTurn, connect=3):
 
     # for nested lists ---------------
     if isinstance(board,(list,)):
-        # board_temp = [x[:] for x in board]
         board_temp = board
         for i in range(rows):
             if board_temp[i][column] == 0:
@@ -180,6 +180,12 @@ def isLegalMove(board, column):
     # if we iterated through all rows
     return False
 
+def random_choice():
+    """Choose random column"""
+    columns= [0, 1, 2, 3, 4]
+    chosen_column = random.choice(columns)
+    return str(chosen_column)
+
 def simulate_keypress(keypress):
     """simulates keypress"""
     keyboard.press(keypress)
@@ -190,7 +196,8 @@ def bot_player(depth, board, myTurn):
     """
     concludes every necessary functions for AI
     """
-    return simulate_keypress(choose_options(depth, board, myTurn))
+    return chosen_column(random_choice())
+    # return simulate_keypress(choose_options(depth, board, myTurn))
     # choose best option
     # simulate keypress
 
