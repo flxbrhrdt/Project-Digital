@@ -1,5 +1,8 @@
 # Project-Digital
-This the final project of the Software Design class in fall 2017 at the olin College of Engineering. The goal of the the project called "Project-Digital" was to create a "Connect 3" game (simplified version of "Concet 4") and implement a bot you can play against.
+This the final project of the Software Design class in fall 2017 at the olin College of Engineering. The goal of the the project called "Project-Digital" was to create a "Connect 3" game (simplified version of "Concet 4") and implement a bot you can play against. 
+
+Our website link is here: [Project-Digital.tk.](http://project-digital.tk)
+
 
 ## Getting Started
 
