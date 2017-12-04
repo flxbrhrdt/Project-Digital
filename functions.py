@@ -1,3 +1,6 @@
+import numpy
+import pygame
+
 def createboard(rows,columns):
     row_size = ''
     for rows in range(rows):
@@ -51,12 +54,33 @@ def winning(matrix, connect):
     return False, 0
 
 def look_through_rows(board, column, player):
-    count = 3
-    count2 = 1
-    while count >= 0 and count2 == 1:
-        if board[count,column] == 0:
-            board[count,column] = player
-            count2 = count2 - 1
-        else:
-            count = count - 1
-    return board
+    if board.shape[1] > column:
+        count = 3
+        count2 = 1
+        while count >= 0 and count2 == 1:
+            if board[count,column] == 0:
+                board[count,column] = player
+                count2 = count2 - 1
+            else:
+                count = count - 1
+        return board
+    else:
+        print('Improper Column Given')
+
+def pygame_key_reader(key):
+    if key[49] == 1:
+        return 0
+    if key[50] == 1:
+        return 1
+    if key[51] == 1:
+        return 2
+    if key[52] == 1:
+        return 3
+    if key[53] == 1:
+        return 4
+    if key[54] == 1:
+        return 5
+    if key[55] == 1:
+        return 6
+    if key[56] == 1:
+        return 7
