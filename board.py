@@ -88,6 +88,14 @@ while running:
                 gameboard.draw(screen)
                 pygame.display.update()
 
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_q:
+                    pygame.quit()
+                    quit()
+
 while endscreen:
 
     for event in pygame.event.get():
