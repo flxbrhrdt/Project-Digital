@@ -1,3 +1,5 @@
+import numpy
+
 def createboard(rows,columns):
     row_size = ''
     for rows in range(rows):

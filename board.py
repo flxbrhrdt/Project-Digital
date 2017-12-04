@@ -16,10 +16,31 @@ screen.fill(background_color)
 pygame.display.set_caption('Connect 4')
 
 class Board:
-    def __init__(self, rows, columns):
+    def __init__(self, rows, columns, piecesize=100):
+
         self.rows = rows
         self.columns = columns
         self.matrix = numpy.matrix(functions.createboard(self.rows,self.columns))
+
+    def draw(self, screen):
+        # Drawing the grid
+        for x in range(0, self.rows * 100, 100):
+            for y in range(0, self.columns * 100, 100):
+                rectangle =(x,y, 100, 100)
+                pygame.draw.rect(screen, (0,0,255), rectangle, 5)
+
+        #drawing the chips
+        for x in range(self.rows):
+            for y in range(self.columns):
+                pos = (x *100 + 50 , y *100 + 50)
+
+                if self.matrix[y, x] == 1:
+                    color = (255, 255, 0)   # player 1 is yellow
+                elif self.matrix[y, x] == 2:
+                    color = (255, 0, 0)     # player 2 is red
+                else:
+                    continue
+                pygame.draw.circle(screen, color , pos, 40)
 
 
 gameboard = Board(5,4)
@@ -41,6 +62,8 @@ win = functions.winning(gameboard.matrix,3)
 running = True
 
 while running:
+    screen.fill((255, 255, 255)) #set up background
+    gameboard.draw(screen)
     pygame.display.update()
     if pygame.time.get_ticks() > (Time + 10):
         Time = pygame.time.get_ticks()
@@ -73,6 +96,7 @@ while running:
                     print(gameboard.matrix)
                 #TODO change the event keys to take in nay rows not just
                 # up to 5.
+                gameboard.draw(screen)
                 pygame.display.update()
 
 while endscreen:

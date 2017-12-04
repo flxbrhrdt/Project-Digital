@@ -21,21 +21,22 @@ class Board:
 
         width, height = 5, 4
 
-        self.PIECESIZE = piecesize
-        self.BOARDWIDTH = width*piecesize
-        self.BOARDHEIGHT = height*piecesize
-        self.width = width
-        self.height = height
-        self.COLOR = (0, 0, 255)
-        self.XMARG = (WINDOW_DIMENSIONS[0] - self.BOARDWIDTH) // 2
-        self.YMARG = WINDOW_DIMENSIONS[1] // 4
-        self.RECT = pygame.Rect(self.XMARG, self.YMARG,
-                                self.BOARDWIDTH, self.BOARDHEIGHT)
-        self.TURN = 0
+        # self.PIECESIZE = piecesize
+        # self.BOARDWIDTH = width*piecesize
+        # self.BOARDHEIGHT = height*piecesize
+        # self.width = width
+        # self.height = height
+        # self.COLOR = (0, 0, 255)
+        # self.XMARG = (WINDOW_DIMENSIONS[0] - self.BOARDWIDTH) // 2
+        # self.YMARG = WINDOW_DIMENSIONS[1] // 4
+        # self.RECT = pygame.Rect(self.XMARG, self.YMARG,
+        #                         self.BOARDWIDTH, self.BOARDHEIGHT)
+        # self.TURN = 0
+        #
+        # self.COUNT1 = 0  # player 1 moves
+        # self.COUNT2 = 0  # player 2 moves
 
-        self.COUNT1 = 0  # player 1 moves
-        self.COUNT2 = 0  # player 2 moves
-
+#the thigs used for the workign code
 
         self.width = width
         self.height = height
@@ -44,7 +45,7 @@ class Board:
         #self.PLAYERS = (p1, p2)2
 
     def draw(self, screen):
-        # Drawing the borders
+        # Drawing the grid
         for x in range(0, self.width * 100, 100):
             for y in range(0, self.height * 100, 100):
                 rectangle =(x,y, 100, 100)
@@ -145,13 +146,10 @@ def look_through_rows(board, column, player):
     return board
 
 
-
-
-#Keyboard input for player. Can be completed after structure of matrix is set.
+#Keyboard input for player
 running = True
 while running:
     screen.fill((255, 255, 255)) #set up background
-    #screen.blit(background, (0,0))
     boardC = Board(matrix = board)
     boardC.draw(screen)
     pygame.display.update()
