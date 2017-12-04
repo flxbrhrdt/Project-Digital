@@ -72,6 +72,9 @@ while running:
             running = False
             endscreen = True
     for event in pygame.event.get():
+            if player == 2:
+                pass
+                #TODO add bot
             if event.type == pygame.KEYDOWN:
                 if player == 0:
                     player = 1
@@ -79,23 +82,9 @@ while running:
                     player = 2
                 elif player == 2:
                     player = 1
-                if event.key == pygame.K_1:
-                    functions.look_through_rows(gameboard.matrix, 0, player)
-                    print(gameboard.matrix)
-                if event.key == pygame.K_2:
-                    print(gameboard.matrix)
-                    functions.look_through_rows(gameboard.matrix, 1, player)
-                if event.key == pygame.K_3:
-                    functions.look_through_rows(gameboard.matrix, 2, player)
-                    print(gameboard.matrix)
-                if event.key == pygame.K_4:
-                    functions.look_through_rows(gameboard.matrix, 3, player)
-                    print(gameboard.matrix)
-                if event.key == pygame.K_5:
-                    functions.look_through_rows(gameboard.matrix, 4, player)
-                    print(gameboard.matrix)
-                #TODO change the event keys to take in nay rows not just
-                # up to 5.
+                c = pygame.key.get_pressed()
+                functions.look_through_rows(gameboard.matrix, functions.pygame_key_reader(c) ,player)
+                print(gameboard.matrix)
                 gameboard.draw(screen)
                 pygame.display.update()
 
