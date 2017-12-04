@@ -109,8 +109,13 @@ def search(depth, board, myTurn):
             if child == None:
                 print("child == None (search)")
                 # start recursion, check if minus is necessary
+<<<<<<< HEAD
             score = max(score, -search(depth-1, child, False))
             # score negative or positive
+=======
+            score = max(score, -search(depth-1, child, opp_player))
+            # score negative or positive???
+>>>>>>> c474be841c42ebb7defc375c54cce74bb3f03aec
         return score
 
 def choose_options(depth, board, myTurn):

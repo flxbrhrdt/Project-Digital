@@ -2,7 +2,7 @@ import pygame
 import numpy
 import functions
 import sys
-
+from fake_bot import fake_player
 
 pygame.init()
 
@@ -73,8 +73,7 @@ while running:
             endscreen = True
     for event in pygame.event.get():
             if player == 2:
-                pass
-                #TODO add bot
+                fake_player(4, gameboard.matrix)
             if event.type == pygame.KEYDOWN:
                 if player == 0:
                     player = 1
