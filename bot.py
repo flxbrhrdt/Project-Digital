@@ -152,13 +152,6 @@ def makeMove(column, board, myTurn, connect=3):
     else:
         coin = 2
 
-    # for nested lists ---------------
-    if isinstance(board,(list,)):
-        board_temp = board
-        for i in range(rows):
-            if board_temp[i][column] == 0:
-                board_temp[i][column] = coin
-                return board_temp
     # for matrix---------
     else:
         board_temp = board
