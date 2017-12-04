@@ -34,29 +34,44 @@ def minimax(node, depth, myTurn, matrix, connect=3):
     Returns an integer of score"""
     gametree = [0]*(node)
     print(gametree)
-    if depth == 0 or winning(matrix)[0]:
+
+    '''Fix me! I place pieces and store them in new matrices
+    rows = 4
+    # enumerate all possible moves from this board
+    legal_moves = []
+    for i in range(rows):
+        # if column i is a legal move
+        if isLegalMove(board, i):
+            # make the move in column i for curr_player
+            temp = makeMove(i, board, myTurn)
+            # create list of matrix
+            legal_moves.append(temp)
+    '''
+
+    if depth == 0 or winning(matrix)[0]: # or len(legal_moves)==0:
         a = scoring(matrix, connect, myTurn)
         print(matrix)
         print('depth' + str(depth))
-        return 1
+        return a
     elif myTurn:
-        #bestValue = -10
+        #bestValue = -10000
         for child in range(node):
             #place piece?
             print(child, myTurn)
+            #call on node???
             gametree[child-1] = minimax(node, depth-1, False, matrix, connect=3)
             #bestValue = ...
     elif not myTurn:
-        #bestValue = -10
-        for child in range(node):
+        #bestValue = 10000
+        for child in range(node): #legal_moves:
             #place piece?
             print(child, myTurn, node)
-            #bestValue = ...
             gametree[child-1] = minimax(node, depth-1, True, matrix, connect=3)
+            #bestValue = ...
     return gametree
 
-a = numpy.matrix('0 1 0 1; 0 0 0 0; 0 0 0 0')
-print(minimax(4, 3, True, a))
+a = numpy.matrix('0 1 0 1 0; 0 0 0 0 0; 0 0 0 0 0; 0 0 0 0 0')
+# print(minimax(4, 3, True, a))
 
 
 def search(depth, board, myTurn):
@@ -94,7 +109,7 @@ def search(depth, board, myTurn):
             if child == None:
                 print("child == None (search)")
                 # start recursion, check if minus is necessary
-            score = max(score, -search(depth-1, child, opp_player))
+            score = max(score, -search(depth-1, child, False))
             # score negative or positive
         return score
 
@@ -105,15 +120,16 @@ def choose_options(depth, board, myTurn):
     OUTPUT: column (integer) were we should place our piece
     """
     rows = 4
+    columns = 5
     possible_moves = {} # possible moves (key) and their scores (value)
-    for column in range(rows):
+    for column in range(columns):
         # check if column i is a possible
-        if isLegalMove(col, board):
+        if isLegalMove(board, column):
             # make the move in column  for curr_player
-            temp = makeMove(column, board, curr_player)
+            temp = makeMove(column, board, myTurn)
             # assign overall score (value, recurs function) to every column (key)
             #TODO: CONSULTING
-            possible_moves[column] = -search(depth-1, temp, opp_player)
+            possible_moves[column] = -search(depth-1, temp, False)
             # minus maybe has to stay depending on scoring implementation
     # return the key(column) for the best score
     return best_option(possible_moves)
@@ -147,13 +163,12 @@ def makeMove(column, board, myTurn, connect=3):
     else:
         rows = 6
     # check if it is my turn
-    if myTurn = True:
+    if myTurn == True:
         coin = 1
     else:
         coin = 2
 
     # for matrix---------
-    else:
         board_temp = board
         for i in range(rows):
             if board_temp[i, column] == 0:
@@ -166,6 +181,7 @@ def isLegalMove(board, column):
     Check if there is a space left in the column
     output: boolean"""
     # loop through every row of a column
+    rows = 4
     for i in range(rows):
         if board[i, column] == 0:
             # as soon as we find the first empty spot return True
@@ -196,3 +212,4 @@ def bot_player(depth, board, myTurn):
 
 
 # simulate_keypress(choose_option())
+choose_options(4, a, True)
