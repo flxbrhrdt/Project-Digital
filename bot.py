@@ -71,7 +71,6 @@ pygame.init()
 #             #bestValue = ...
 #     return gametree
 #
-a = numpy.matrix('0 1 0 1 0; 0 0 0 0 0; 0 0 0 0 0; 0 0 0 0 0')
 # # print(minimax(4, 3, True, a))
 
 def choose_options(depth, board, myTurn=True):
@@ -202,4 +201,5 @@ def bot_player(depth, board, myTurn):
     # choose best option & simulate keypress for it
 
 # simulate_keypress(choose_option())
-choose_options(4, a, True)
+a = numpy.matrix('0 0 0 2 0; 0 0 1 1 0; 0 0 0 2 0; 0 0 0 0 0')
+print(choose_options(4, a, True))
