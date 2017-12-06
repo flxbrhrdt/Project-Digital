@@ -22,11 +22,10 @@ def isLegalMove(column, board):
     """
     # loop through every row of a column
     rows = board.shape[0]
-    for row in range(rows):
+    for row in reversed(range(rows)):
         if board[row, column] == 0:
             # as soon as we find the first empty spot return True
             return True
-        #TODO go from bottom up
     # if we iterated through all rows
     return False
 
@@ -48,12 +47,10 @@ def makeMove(column, board, myTurn):
     else: #human = player 1
         coin = 1
     board_temp = board
-    for row in range(rows):
+    for row in reversed(range(rows)):
         if board_temp[row, column] == 0:
             board_temp[row, column] = coin
             return board_temp
-        #TODO From bottom up
-
 
 def search(depth, board, myTurn):
         """ Search the tree until depth 'depth'
@@ -121,6 +118,9 @@ def choose_options(depth, board, myTurn=True):
             # make the move in column  for curr_player
             temp = makeMove(column, board, myTurn)
             # assign overall score (value, recurs function) to every column (key)
+            # check if we can win during the next draw
+            if winning(temp):
+                return column
             possible_moves[column] = search(depth-1, temp, not myTurn)
             # TODO implrmrnt winning
     # return the key(column) for the best score
