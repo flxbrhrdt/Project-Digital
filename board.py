@@ -4,7 +4,6 @@ import functions
 import sys
 import fake_bot
 
-
 class Board:
     def __init__(self, rows, columns, piecesize=100):
 
@@ -48,7 +47,7 @@ screen.fill(background_color)
 gameboard = Board(5,4)
 print(gameboard.matrix)
 
-player = 0
+player = 1
 Time = 0
 endscreen = False
 win = functions.winning(gameboard.matrix,3)
@@ -111,7 +110,6 @@ while running:
         if event.key == pygame.K_q:
             pygame.quit()
             quit()
-
 
 while endscreen:
 
