@@ -34,8 +34,8 @@ class Board:
 
 ### Set colors and dimensions of board
 background_color = (255,255,255)    #white
-width, height = 700 , 500           #screen dimensions for connect 4
-#width, height = 500, 400            #screen dimensions for connect 3
+#width, height = 700 , 500           #screen dimensions for connect 4
+width, height = 500, 400            #screen dimensions for connect 3
 black = (0,0,0)
 
 ### Initializing game environment
@@ -45,7 +45,7 @@ pygame.display.set_caption('Connect 3')
 screen.fill(background_color)
 
 ### Initializing and printing board
-gameboard = Board(7,6)
+gameboard = Board(5,4)
 print(gameboard.matrix)
 
 player = 0
