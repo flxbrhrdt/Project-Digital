@@ -52,9 +52,9 @@ def scoring(matrix, connect, myTurn):
     score2 = 0
     if a == True:
         if b == 1:
-            score1 = 50
+            score1 = 100
         elif b == 2:
-            score2 = 50
+            score2 = 100
     else:
         #horizontal
         for x in range(rows):
@@ -95,10 +95,6 @@ def scoring(matrix, connect, myTurn):
                 elif a[i] == a[i++1] == a[i+2] and a[i] == 2 and myTurn:
                     score2 += 3
     if not myTurn:
-        return score1
+        return score1-score2
     elif myTurn:
-        return score2
-
-
-a = numpy.matrix('1 1 1 0; 0 0 0 0; 0 0 0 0')
-# print(scoring(a,3))
+        return score2-score1
