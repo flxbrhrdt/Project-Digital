@@ -2,8 +2,11 @@ import pygame
 import numpy
 import functions
 import sys
-from fake_bot import fake_player
+import fake_bot
+from pynput.keyboard import Key, Controller
 
+
+keyboard = Controller()
 pygame.init()
 
 background_color = (255,255,255)
@@ -54,7 +57,7 @@ screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption('Connect 3')
 screen.fill(background_color)
 
-player = 0
+player = 1
 Time = 0
 endscreen = False
 win = functions.winning(gameboard.matrix,3)
@@ -65,34 +68,55 @@ while running:
     screen.fill((255, 255, 255)) #set up background
     gameboard.draw(screen)
     pygame.display.update()
-    if pygame.time.get_ticks() > (Time + 10):
-        Time = pygame.time.get_ticks()
-        win = functions.winning(gameboard.matrix,3)
-        if win[0] == True:
-            running = False
-            endscreen = True
+
+
     for event in pygame.event.get():
+
             if event.type == pygame.KEYDOWN:
-                if player == 0:
-                    player = 1
-                elif player == 1:
+                # c = pygame.key.get_pressed()
+                # functions.look_through_rows(gameboard.matrix, functions.pygame_key_reader(c) ,player)
+                if event.key == pygame.K_1:
+                    functions.look_through_rows(gameboard.matrix, 0, player)
+                if event.key == pygame.K_2:
+                    functions.look_through_rows(gameboard.matrix, 1, player)
+                if event.key == pygame.K_3:
+                    functions.look_through_rows(gameboard.matrix, 2, player)
+                if event.key == pygame.K_4:
+                    functions.look_through_rows(gameboard.matrix, 3, player)
+                if event.key == pygame.K_5:
+                    functions.look_through_rows(gameboard.matrix, 4, player)
+                print(gameboard.matrix)
+
+                if player == 1:
                     player = 2
                 elif player == 2:
                     player = 1
-                c = pygame.key.get_pressed()
-                functions.look_through_rows(gameboard.matrix, functions.pygame_key_reader(c) ,player)
-                print(gameboard.matrix)
+
                 gameboard.draw(screen)
                 pygame.display.update()
+
+            win = functions.winning(gameboard.matrix,3)
+            if win[0] == True:
+                running = False
+                endscreen = True
+
             if player == 2:
-                fake_player(4, gameboard.matrix)
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_q:
-                    pygame.quit()
-                    quit()
+                    keyboard.press('2')
+                    keyboard.release('2')
+
+            win = functions.winning(gameboard.matrix,3)
+            if win[0] == True:
+                running = False
+                endscreen = True
+
+    if event.type == pygame.QUIT:
+        pygame.quit()
+        quit()
+    if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_q:
+            pygame.quit()
+            quit()
+
 
 while endscreen:
 
