@@ -101,8 +101,7 @@ while running:
                 endscreen = True
 
             if player == 2:
-                    keyboard.press('2')
-                    keyboard.release('2')
+                fake_bot.fake_player(4, gameboard.matrix)
 
             win = functions.winning(gameboard.matrix,3)
             if win[0] == True:
