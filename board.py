@@ -3,20 +3,6 @@ import numpy
 import functions
 import sys
 import fake_bot
-from pynput.keyboard import Key, Controller
-
-
-keyboard = Controller()
-pygame.init()
-
-background_color = (255,255,255)
-WINDOW_DIMENSIONS = (640, 480)
-width, height = 640, 480
-
-"""Bunch of variables"""
-screen = pygame.display.set_mode((width, height))
-screen.fill(background_color)
-pygame.display.set_caption('Connect 4')
 
 class Board:
     def __init__(self, rows, columns, piecesize=100):
@@ -45,22 +31,31 @@ class Board:
                     continue
                 pygame.draw.circle(screen, color , pos, 40)
 
+### Set colors and dimensions of board
+background_color = (255,255,255)    #white
+#width, height = 700 , 500           #screen dimensions for connect 4
+width, height = 500, 400            #screen dimensions for connect 3
+black = (0,0,0)
 
-gameboard = Board(5,4)
-#TODO add variability with board size
-print(gameboard.matrix)
-
-background_color = (255,255,255)
-width, height = 640, 480
-
+### Initializing game environment
+pygame.init()
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption('Connect 3')
 screen.fill(background_color)
+
+### Initializing and printing board
+gameboard = Board(5,4)
+print(gameboard.matrix)
 
 player = 1
 Time = 0
 endscreen = False
 win = functions.winning(gameboard.matrix,3)
+
+font = pygame.font.SysFont("Lucida Sans Typewriter", 50)
+text1 = font.render("Welcome to Connect 3", True, black)
+screen.blit(text1, (180, 100))
+pygame.display.update()
 
 running = True
 
@@ -115,7 +110,6 @@ while running:
         if event.key == pygame.K_q:
             pygame.quit()
             quit()
-
 
 while endscreen:
 
