@@ -1,7 +1,6 @@
 #authors: Siena and Felix
 # Needed functions isLegalMove
-#new variables: board = matrix,
-#
+#new variables: board = matrix
 
 import numpy
 import pygame
@@ -12,66 +11,6 @@ from winning import winning, scoring
 keyboard = Controller()
 
 pygame.init()
-#c1location = (1,1)
-#c2location = (2,1)
-#c3location = (3,1)
-#c4location = (4,2)
-#c5location = (5,1)
-#MOUSE = pygame.USEREVENT + 1
-#column1 = pygame.event.Event(MOUSE, location=c1location)
-#pygame.event.post(column1)
-#pygame.event.get
-#done = False
-#while not done:
-#    for event in pygame.event.get():
-#        if event.type == MOUSE:
-#            print("column1")
-#            done = True
-#    pygame.event.pump()
-
-# def minimax(node, depth, myTurn, matrix, connect=3):
-#     """Evaluation of scores and nodes to pick the best move.
-#     Takes depth, boolean of myTurn, matrix of the playing field, and # to connect.
-#     Returns an integer of score"""
-#     gametree = [0]*(node)
-#     print(gametree)
-#
-#     '''Fix me! I place pieces and store them in new matrices
-#     rows = 4
-#     # enumerate all possible moves from this board
-#     legal_moves = []
-#     for i in range(rows):
-#         # if column i is a legal move
-#         if isLegalMove(board, i):
-#             # make the move in column i for curr_player
-#             temp = makeMove(i, board, myTurn)
-#             # create list of matrix
-#             legal_moves.append(temp)
-#     '''
-#
-#     if depth == 0 or winning(matrix)[0]: # or len(legal_moves)==0:
-#         a = scoring(matrix, connect, myTurn)
-#         print(matrix)
-#         print('depth' + str(depth))
-#         return a
-#     elif myTurn:
-#         #bestValue = -10000
-#         for child in range(node):
-#             #place piece?
-#             print(child, myTurn)
-#             #call on node???
-#             gametree[child-1] = minimax(node, depth-1, False, matrix, connect=3)
-#             #bestValue = ...
-#     elif not myTurn:
-#         #bestValue = 10000
-#         for child in range(node): #legal_moves:
-#             #place piece?
-#             print(child, myTurn, node)
-#             gametree[child-1] = minimax(node, depth-1, True, matrix, connect=3)
-#             #bestValue = ...
-#     return gametree
-#
-# # print(minimax(4, 3, True, a))
 
 def choose_options(depth, board, myTurn=True):
     """
@@ -201,5 +140,5 @@ def bot_player(depth, board, myTurn):
     # choose best option & simulate keypress for it
 
 # simulate_keypress(choose_option())
-a = numpy.matrix('0 0 0 2 0; 0 0 1 1 0; 0 0 0 2 0; 0 0 0 0 0')
+a = numpy.matrix('0 0 0 2 0; 0 0 1 2 0; 0 0 0 0 0; 0 0 0 0 0')
 print(choose_options(4, a, True))
