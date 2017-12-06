@@ -12,74 +12,24 @@ keyboard = Controller()
 
 pygame.init()
 
-def choose_options(depth, board, myTurn=True):
+def isLegalMove(column, board):
     """
-    INPUT: depth(integer), board(matrix), myTurn(boolean)
-
-    OUTPUT: column (integer) were we should place our piece
+    Input: board (matrix), column (int)
+    Check if there is a space left in the column
+    output: boolean
+    >>> isLegalMove((('0 1 0 1 0; 0 0 0 0 0; 0 0 0 0 0; 0 0 0 0 0')), board)
+    True
     """
+    # loop through every row of a column
     rows = board.shape[0]
-    columns = board.shape[1]
-    possible_moves = {} # possible moves (key) and their scores (value)
-    for column in range(columns):
-        # check if column i is a possible
-        if isLegalMove(column, board):
-            # make the move in column  for curr_player
-            temp = makeMove(column, board, myTurn)
-            # assign overall score (value, recurs function) to every column (key)
-            possible_moves[column] = search(depth-1, temp, False)
+    for row in range(rows):
+        if board[row, column] == 0:
+            # as soon as we find the first empty spot return True
+            return True
+        #TODO go from bottom up
+    # if we iterated through all rows
+    return False
 
-    # return the key(column) for the best score
-    return best_option(possible_moves)
-
-def search(depth, board, myTurn):
-        """ Search the tree until depth 'depth'
-            By default, the  is the board, and curr_player is whomever called this search
-            Return score
-        """
-        columns = board.shape[1]
-        # enumerate all possible moves from this board
-        legal_moves = []
-        for column in range(columns):
-            # if column i is a legal move
-            if isLegalMove(column, board):
-                # make the move in column i for curr_player
-                temp = makeMove(column, board, myTurn)
-                # create list of matrix
-                legal_moves.append(temp)
-
-        # BASECASE (if depth == 0, game tied or someone wins)
-        if depth == 0 or len(legal_moves) == 0 or winning(board):
-            # return value(board, curr_player) from winning
-            return scoring(board, 3, myTurn)
-        # RECURSION
-        if myTurn:  #Maximizing Player
-            score = -99999999
-            for child in legal_moves:
-                    # start recursion, check if minus is necessary
-                score = max(score, search(depth-1, child, False))
-                return score
-        else:  #Minimizing Player
-            score = 99999999
-            for child in legal_moves:
-                # start recursion, check if minus is necessary
-                score = min(score, search(depth-1, child, True))
-                # score negative or positive????
-                return score
-
-def best_option(possible_moves={1: 3, 2: 6, 3: 100}):
-    """
-    INPUT: options with score (dict)
-
-    choose the the highest value
-    return the key (branch) of the maximum value (score)
-    if no option given, choose the middle column(3)
-
-    OUTPUT: column (integer) were we should place our piece
-    """
-    # find the best option (max score)
-    best_option = max(possible_moves, key=possible_moves.get)
-    return str(best_option)
 
 def makeMove(column, board, myTurn):
     """
@@ -102,23 +52,80 @@ def makeMove(column, board, myTurn):
         if board_temp[row, column] == 0:
             board_temp[row, column] = coin
             return board_temp
+        #TODO From bottom up
 
-def isLegalMove(column, board):
+
+def search(depth, board, myTurn):
+        """ Search the tree until depth 'depth'
+            By default, the  is the board, and curr_player is whomever called this search
+            Return score
+        """
+        columns = board.shape[1]
+        # enumerate all possible moves from this board
+        legal_moves = []
+        for column in range(columns):
+            # if column i is a legal move
+            if isLegalMove(column, board):
+                # make the move in column i for curr_player
+                temp = makeMove(column, board, myTurn)
+                # create list of matrix
+                legal_moves.append(temp)
+
+        # BASECASE (if depth == 0, game tied or someone wins)
+        if depth == 0 or len(legal_moves) == 0 or winning(board):
+            # return value(board, curr_player) from winning
+            return scoring(board, 3, myTurn)*(depth+1)
+        # RECURSION
+        if myTurn:  #Maximizing Player
+            score = -99999999
+            for child in legal_moves:
+                    # start recursion, check if minus is necessary
+                score = max(score, search(depth-1, child, False))
+                return score
+        else:  #Minimizing Player
+            score = 99999999
+            for child in legal_moves:
+                # start recursion, check if minus is necessary
+                score = min(score, search(depth-1, child, True))
+                # score negative or positive????
+                return score
+
+
+def best_option(possible_moves={1: 3, 2: 6, 3: 100}):
     """
-    Input: board (matrix), column (int)
-    Check if there is a space left in the column
-    output: boolean
-    >>> isLegalMove((('0 1 0 1 0; 0 0 0 0 0; 0 0 0 0 0; 0 0 0 0 0')), board)
-    True
+    INPUT: options with score (dict)
+
+    choose the the highest value
+    return the key (branch) of the maximum value (score)
+    if no option given, choose the middle column(3)
+
+    OUTPUT: column (integer) were we should place our piece
     """
-    # loop through every row of a column
+    # find the best option (max score)
+    best_option = max(possible_moves, key=possible_moves.get)
+    return str(best_option)
+
+
+def choose_options(depth, board, myTurn=True):
+    """
+    INPUT: depth(integer), board(matrix), myTurn(boolean)
+
+    OUTPUT: column (integer) were we should place our piece
+    """
     rows = board.shape[0]
-    for row in range(rows):
-        if board[row, column] == 0:
-            # as soon as we find the first empty spot return True
-            return True
-    # if we iterated through all rows
-    return False
+    columns = board.shape[1]
+    possible_moves = {} # possible moves (key) and their scores (value)
+    for column in range(columns):
+        # check if column i is a possible
+        if isLegalMove(column, board):
+            # make the move in column  for curr_player
+            temp = makeMove(column, board, myTurn)
+            # assign overall score (value, recurs function) to every column (key)
+            possible_moves[column] = search(depth-1, temp, not myTurn)
+            # TODO implrmrnt winning
+    # return the key(column) for the best score
+    return best_option(possible_moves)
+
 
 def random_choice():
     """Choose random column"""
@@ -133,7 +140,7 @@ def simulate_keypress(keypress):
 
 def bot_player(depth, board, myTurn):
     """
-    concludes every necessary functions for AI
+    concludes every necessary function for AI
     """
     return chosen_column(random_choice())
     # return simulate_keypress(choose_options(depth, board, myTurn))
