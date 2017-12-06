@@ -72,8 +72,6 @@ while running:
             running = False
             endscreen = True
     for event in pygame.event.get():
-            if player == 2:
-                fake_player(4, gameboard.matrix)
             if event.type == pygame.KEYDOWN:
                 if player == 0:
                     player = 1
@@ -86,7 +84,8 @@ while running:
                 print(gameboard.matrix)
                 gameboard.draw(screen)
                 pygame.display.update()
-
+            if player == 2:
+                fake_player(4, gameboard.matrix)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
