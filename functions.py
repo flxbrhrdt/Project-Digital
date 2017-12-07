@@ -55,7 +55,7 @@ def winning(matrix, connect):
 
 def look_through_rows(board, column, player):
     if board.shape[1] > column:
-        count = 3
+        count = board.shape[0] - 1
         count2 = 1
         while count >= 0 and count2 == 1:
             if board[count,column] == 0:
@@ -67,20 +67,22 @@ def look_through_rows(board, column, player):
     else:
         print('Improper Column Given')
 
-def pygame_key_reader(key):
-    if key[49] == 1:
-        return 0
-    if key[50] == 1:
-        return 1
-    if key[51] == 1:
-        return 2
-    if key[52] == 1:
-        return 3
-    if key[53] == 1:
-        return 4
-    if key[54] == 1:
-        return 5
-    if key[55] == 1:
-        return 6
-    if key[56] == 1:
-        return 7
+# def pygame_key_reader(key):
+#     if key[49] == 1:
+#         return 0
+#     if key[50] == 1:
+#         return 1
+#     if key[51] == 1:
+#         return 2
+#     if key[52] == 1:
+#         return 3
+#     if key[53] == 1:
+#         return 4
+#     if key[54] == 1:
+#         return 5
+#     if key[55] == 1:
+#         return 6
+#     if key[56] == 1:
+#         return 7
+#     else:
+#         return 'Broken'
