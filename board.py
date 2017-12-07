@@ -34,7 +34,7 @@ class Board:
 
 ### Set colors and dimensions of board
 background_color = (255,255,255)    #white
-width, height = 700 , 500           #screen dimensions for connect 4
+width, height = 700 , 600           #screen dimensions for connect 4
 #width, height = 500, 400            #screen dimensions for connect 3
 black = (0,0,0)
 
@@ -127,7 +127,7 @@ while endscreen:
             if event.key == pygame.K_q:
                 pygame.quit()
                 quit()
-                
+
         screen.fill(background_color) #set up background
         basicfont = pygame.font.SysFont(None, 20)
         text = basicfont.render('Congrats! Player %.2d'%(win[1]) + ' Has Won', True, (0, 0, 0), (255, 255, 255))
