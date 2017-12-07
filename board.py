@@ -32,33 +32,56 @@ class Board:
                     continue
                 pygame.draw.circle(screen, color , pos, 40)
 
+
+### Initializing and printing board
+gameboard = Board(7,6)
+print (gameboard.matrix)
+
+
 ### Set colors and dimensions of board
 background_color = (255,255,255)    #white
 width, height = 700 , 500           #screen dimensions for connect 4
 #width, height = 500, 400            #screen dimensions for connect 3
 black = (0,0,0)
+player = 1                          #Player 1 ges to start first
+Time = 0                            #Timer Variable for delay
+win = functions.winning(gameboard.matrix,3)   #winning function to check if game has been won
+
 
 ### Initializing game environment
 pygame.init()
 screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption('Connect 3')
+pygame.display.set_caption('Connect 4')
 #screen.fill(background_color)
 
-### Initializing and printing board
-gameboard = Board(7,6)
-print(gameboard.matrix)
 
-player = 1
-Time = 0
+
+
+intro = True
+running = False
 endscreen = False
-win = functions.winning(gameboard.matrix,3)
 
-font = pygame.font.SysFont("Lucida Sans Typewriter", 50)
-text1 = font.render("Welcome to Connect 3", True, black)
-screen.blit(text1, (180, 100))
-pygame.display.update()
+while intro:
+    screen.fill(black)
+    font = pygame.font.SysFont("Lucida Sans Typewriter", 13)
+    text1 = font.render("Welcome to Connect 4, Press S to start the game. Use 1,2,3,4,5,6,7 keys to place pieces", True, (background_color))
+    textrect = text1.get_rect()
+    textrect.centerx = screen.get_rect().centerx
+    textrect.centery = screen.get_rect().centery
+    screen.blit(text1, textrect)
+    pygame.display.update()
 
-running = True
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            quit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_q:
+                pygame.quit()
+                quit()
+            if event.key == pygame.K_s:
+                intro = False
+                running = True
 
 while running:
     screen.fill(background_color) #set up background
@@ -127,7 +150,7 @@ while endscreen:
             if event.key == pygame.K_q:
                 pygame.quit()
                 quit()
-                
+
         screen.fill(background_color) #set up background
         basicfont = pygame.font.SysFont(None, 20)
         text = basicfont.render('Congrats! Player %.2d'%(win[1]) + ' Has Won', True, (0, 0, 0), (255, 255, 255))
