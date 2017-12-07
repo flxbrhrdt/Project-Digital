@@ -3,6 +3,7 @@ import numpy
 import functions
 import sys
 import fake_bot
+import winning
 
 class Board:
     def __init__(self, rows, columns, piecesize=100):
@@ -80,10 +81,10 @@ while running:
                     functions.look_through_rows(gameboard.matrix, 3, player)
                 if event.key == pygame.K_5:
                     functions.look_through_rows(gameboard.matrix, 4, player)
-                #if event.key == pygame.K_6:
-                #    functions.look_through_rows(gameboard.matrix, 5, player)
-                #if event.key == pygame.K_7:
-                #    functions.look_through_rows(gameboard.matrix, 6, player)
+                if event.key == pygame.K_6:
+                    functions.look_through_rows(gameboard.matrix, 5, player)
+                if event.key == pygame.K_7:
+                    functions.look_through_rows(gameboard.matrix, 6, player)
                 print(gameboard.matrix)
 
                 if player == 1:
@@ -94,7 +95,7 @@ while running:
                 gameboard.draw(screen)
                 pygame.display.update()
 
-            win = functions.winning(gameboard.matrix,3)
+            win = winning.winning(gameboard.matrix)
             if win[0] == True:
                 running = False
                 endscreen = True
@@ -102,7 +103,7 @@ while running:
             if player == 2:
                 fake_bot.fake_player(4, gameboard.matrix)
 
-            win = functions.winning(gameboard.matrix,3)
+            win = winning.winning(gameboard.matrix)
             if win[0] == True:
                 running = False
                 endscreen = True
@@ -117,6 +118,7 @@ while running:
 
 while endscreen:
 
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -125,7 +127,8 @@ while endscreen:
             if event.key == pygame.K_q:
                 pygame.quit()
                 quit()
-
+                
+        screen.fill(background_color) #set up background
         basicfont = pygame.font.SysFont(None, 20)
         text = basicfont.render('Congrats! Player %.2d'%(win[1]) + ' Has Won', True, (0, 0, 0), (255, 255, 255))
         textrect = text.get_rect()
