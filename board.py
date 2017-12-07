@@ -80,6 +80,10 @@ while running:
                     functions.look_through_rows(gameboard.matrix, 3, player)
                 if event.key == pygame.K_5:
                     functions.look_through_rows(gameboard.matrix, 4, player)
+                #if event.key == pygame.K_6:
+                #    functions.look_through_rows(gameboard.matrix, 5, player)
+                #if event.key == pygame.K_7:
+                #    functions.look_through_rows(gameboard.matrix, 6, player)
                 print(gameboard.matrix)
 
                 if player == 1:
