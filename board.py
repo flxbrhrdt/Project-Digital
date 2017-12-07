@@ -40,7 +40,7 @@ print (gameboard.matrix)
 
 ### Set colors and dimensions of board
 background_color = (255,255,255)    #white
-width, height = 700 , 500           #screen dimensions for connect 4
+width, height = 700 , 600           #screen dimensions for connect 4
 #width, height = 500, 400            #screen dimensions for connect 3
 black = (0,0,0)
 player = 1                          #Player 1 ges to start first
