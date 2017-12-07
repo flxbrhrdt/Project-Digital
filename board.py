@@ -125,6 +125,7 @@ while running:
 
             if player == 2:
                 fake_bot.fake_player(4, gameboard.matrix)
+                #TODO add bot
 
             win = winning.winning(gameboard.matrix)
             if win[0] == True:
