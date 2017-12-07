@@ -33,18 +33,18 @@ class Board:
 
 ### Set colors and dimensions of board
 background_color = (255,255,255)    #white
-#width, height = 700 , 500           #screen dimensions for connect 4
-width, height = 500, 400            #screen dimensions for connect 3
+width, height = 700 , 500           #screen dimensions for connect 4
+#width, height = 500, 400            #screen dimensions for connect 3
 black = (0,0,0)
 
 ### Initializing game environment
 pygame.init()
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption('Connect 3')
-screen.fill(background_color)
+#screen.fill(background_color)
 
 ### Initializing and printing board
-gameboard = Board(5,4)
+gameboard = Board(7,6)
 print(gameboard.matrix)
 
 player = 1
@@ -60,7 +60,7 @@ pygame.display.update()
 running = True
 
 while running:
-    screen.fill((255, 255, 255)) #set up background
+    screen.fill(background_color) #set up background
     gameboard.draw(screen)
     pygame.display.update()
 
@@ -90,7 +90,7 @@ while running:
                 gameboard.draw(screen)
                 pygame.display.update()
 
-            win = functions.winning(gameboard.matrix,3)
+            win = functions.winning(gameboard.matrix,4)
             if win[0] == True:
                 running = False
                 endscreen = True
@@ -98,7 +98,7 @@ while running:
             if player == 2:
                 fake_bot.fake_player(4, gameboard.matrix)
 
-            win = functions.winning(gameboard.matrix,3)
+            win = functions.winning(gameboard.matrix,4)
             if win[0] == True:
                 running = False
                 endscreen = True
