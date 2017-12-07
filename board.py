@@ -80,10 +80,6 @@ while running:
                     functions.look_through_rows(gameboard.matrix, 3, player)
                 if event.key == pygame.K_5:
                     functions.look_through_rows(gameboard.matrix, 4, player)
-                #if event.key == pygame.K_6:
-                #    functions.look_through_rows(gameboard.matrix, 5, player)
-                #if event.key == pygame.K_7:
-                #    functions.look_through_rows(gameboard.matrix, 6, player)
                 print(gameboard.matrix)
 
                 if player == 1:
@@ -94,7 +90,7 @@ while running:
                 gameboard.draw(screen)
                 pygame.display.update()
 
-            win = functions.winning(gameboard.matrix,4)
+            win = functions.winning(gameboard.matrix,3)
             if win[0] == True:
                 running = False
                 endscreen = True
@@ -102,7 +98,7 @@ while running:
             if player == 2:
                 fake_bot.fake_player(4, gameboard.matrix)
 
-            win = functions.winning(gameboard.matrix,4)
+            win = functions.winning(gameboard.matrix,3)
             if win[0] == True:
                 running = False
                 endscreen = True
