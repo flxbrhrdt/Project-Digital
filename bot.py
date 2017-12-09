@@ -56,6 +56,8 @@ def search(depth, board, myTurn):
         """ Search the tree until depth 'depth'
             By default, the  is the board, and curr_player is whomever called this search
             Return score
+            >>> search(0, board, True)
+
         """
         columns = board.shape[1]
         # enumerate all possible moves from this board
@@ -88,7 +90,7 @@ def search(depth, board, myTurn):
                 return score
 
 
-def best_option(possible_moves={1: 3, 2: 6, 3: 100}):
+def best_option(possible_moves):
     """
     INPUT: options with score (dict)
 
@@ -97,6 +99,8 @@ def best_option(possible_moves={1: 3, 2: 6, 3: 100}):
     if no option given, choose the middle column(3)
 
     OUTPUT: column (integer) were we should place our piece
+    >>> best_option({1: 3, 2: 6, 3: 100})
+    '3'
     """
     # find the best option (max score)
     best_option = max(possible_moves, key=possible_moves.get)
@@ -108,6 +112,7 @@ def choose_options(depth, board, myTurn=True):
     INPUT: depth(integer), board(matrix), myTurn(boolean)
 
     OUTPUT: column (integer) were we should place our piece
+
     """
     rows = board.shape[0]
     columns = board.shape[1]
@@ -122,16 +127,8 @@ def choose_options(depth, board, myTurn=True):
             if winning(temp):
                 return column
             possible_moves[column] = search(depth-1, temp, not myTurn)
-            # TODO implrmrnt winning
     # return the key(column) for the best score
     return best_option(possible_moves)
-
-
-def random_choice():
-    """Choose random column"""
-    columns= [0, 1, 2, 3, 4]
-    chosen_column = random.choice(columns)
-    return str(chosen_column)
 
 def simulate_keypress(keypress):
     """simulates keypress"""
