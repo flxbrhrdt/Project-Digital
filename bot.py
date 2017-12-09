@@ -111,7 +111,10 @@ def choose_options(depth, board, myTurn=True):
     """
     INPUT: depth(integer), board(matrix), myTurn(boolean)
 
+    creates a dict with score s
+
     OUTPUT: column (integer) were we should place our piece
+    >>> choose_options(depth, board)
 
     """
     rows = board.shape[0]
@@ -138,11 +141,11 @@ def simulate_keypress(keypress):
 def bot_player(depth, board, myTurn=True):
     """
     concludes every necessary function for AI
-    """
-    return simulate_keypress(choose_optionsdepth, board, myTurn)
-    # return simulate_keypress(choose_options(depth, board, myTurn))
-    # choose best option & simulate keypress for it
+    choose best option & simulate keypress for it
+    >>> bot_player(depth, board, myTurn=True)
 
-# simulate_keypress(choose_option())
-a = numpy.matrix('0 0 0 2 0; 0 0 1 2 0; 0 0 0 0 0; 0 0 0 0 0')
-print(choose_options(4, a, True))
+    """
+    return simulate_keypress(choose_options(depth, board, myTurn)
+
+a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 1 0 0;')
+print(choose_options(1, a, True))

@@ -2,9 +2,8 @@ import pygame
 import numpy
 import functions
 import sys
-import fake_bot
-import bot
 import winning
+import fake_bot
 
 class Board:
     def __init__(self, rows, columns, piecesize=100):
