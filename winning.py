@@ -33,7 +33,7 @@ def winning(matrix, connect=4):
     for x in range(longer-1):
         a = numpy.diagonal(arrayM,x-(rows-connect+1))
         for i in range(len(a)-connect+1):
-            if a[i] == a[i++1] == a[i+2] == a[i+3] and a[i] !=0:
+            if a[i] == a[i+1] == a[i+2] == a[i+3] and a[i] !=0:
                 return True, a[i]
     #tie
     if numpy.count_nonzero(arrayM) == rows*columns:
