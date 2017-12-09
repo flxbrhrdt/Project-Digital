@@ -3,6 +3,8 @@
 #Determines if game is won and by who when given a matrix
 import numpy
 
+#TODO check about range of functions
+
 def winning(matrix, connect=4):
     rows = matrix.shape[0]
     columns = matrix.shape[1]
@@ -25,14 +27,14 @@ def winning(matrix, connect=4):
     arrayM = numpy.asarray(matrix)
     for x in range(longer-1):
         a = numpy.diagonal(arrayM,x-(rows-connect))
-        for i in range(len(a)-connect+1):
-            if a[i] == a[i++1] == a[i+2] ==a[i+3] and a[i] !=0:
+        for i in range(len(a)-connect):
+            if a[i] == a[i+1] == a[i+2] ==a[i+3] and a[i] !=0:
                 return True, a[i]
     #reverse diagonal
     arrayM = numpy.asarray(numpy.fliplr(matrix))
     for x in range(longer-1):
         a = numpy.diagonal(arrayM,x-(rows-connect))
-        for i in range(len(a)-connect+1):
+        for i in range(len(a)-connect):
             if a[i] == a[i+1] == a[i+2] == a[i+3] and a[i] !=0:
                 return True, a[i]
     #tie
@@ -58,7 +60,7 @@ def scoring(matrix, connect, myTurn):
     else:
         #horizontal
         for x in range(rows):
-            for y in range(columns-1):
+            for y in range(columns-connect):
                 if matrix[x,y] == matrix[x,y+1] == matrix[x,y+2] == 1 and not myTurn:
                     score1 += 25
                 elif matrix[x,y] == matrix[x,y+1] == matrix[x,y+2] == 2 and myTurn:
@@ -68,8 +70,8 @@ def scoring(matrix, connect, myTurn):
                 elif matrix[x,y] == matrix[x,y+1] == 2 and myTurn:
                     score2 += 5
         #vertical
-        for y in range(columns):
-            for x in range(rows-1):
+        for y in range(columns-connect):
+            for x in range(rows-connect):
                 if matrix[x,y] == matrix[x+1,y] == matrix[x+2,y] == 1 and not myTurn:     #add another == for Connect 4
                     score1 += 25
                 elif matrix[x,y] == matrix[x+1,y] == matrix[x+2,y] == 2 and myTurn:     #add another == for Connect 4
