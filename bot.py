@@ -63,12 +63,14 @@ def search(depth, board, myTurn):
         # enumerate all possible moves from this board
         legal_moves = []
         for column in range(columns):
+            print('hi')
             # if column i is a legal move
             if isLegalMove(column, board):
                 # make the move in column i for curr_player
                 temp = makeMove(column, board, myTurn)
                 # create list of matrix
                 legal_moves.append(temp)
+                print(legal_moves)
 
         # BASECASE (if depth == 0, game tied or someone wins)
         if depth == 0 or len(legal_moves) == 0 or winning(board):
@@ -121,6 +123,7 @@ def choose_options(depth, board, myTurn=True):
     columns = board.shape[1]
     possible_moves = {} # possible moves (key) and their scores (value)
     for column in range(columns):
+        print('hello')
         # check if column i is a possible
         if isLegalMove(column, board):
             # make the move in column  for curr_player
@@ -145,7 +148,7 @@ def bot_player(depth, board, myTurn=True):
     >>> bot_player(depth, board, myTurn=True)
 
     """
-    return simulate_keypress(choose_options(depth, board, myTurn)
+    return simulate_keypress(choose_options(depth, board, myTurn))
 
-a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 1 0 0;')
+a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 1 0 0')
 print(choose_options(1, a, True))
