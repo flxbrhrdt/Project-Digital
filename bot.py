@@ -135,11 +135,11 @@ def simulate_keypress(keypress):
     keyboard.press(keypress)
     keyboard.release(keypress)
 
-def bot_player(depth, board, myTurn):
+def bot_player(depth, board, myTurn=True):
     """
     concludes every necessary function for AI
     """
-    return chosen_column(random_choice())
+    return simulate_keypress(choose_optionsdepth, board, myTurn)
     # return simulate_keypress(choose_options(depth, board, myTurn))
     # choose best option & simulate keypress for it
 

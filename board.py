@@ -3,6 +3,7 @@ import numpy
 import functions
 import sys
 import fake_bot
+import bot
 import winning
 
 class Board:
@@ -124,7 +125,8 @@ while running:
                 endscreen = True
 
             if player == 2:
-                fake_bot.fake_player(4, gameboard.matrix)
+                # fake_bot.fake_player(4, gameboard.matrix)
+                bot.bot_player(4, gameboard.matrix)
 
             win = winning.winning(gameboard.matrix)
             if win[0] == True:
