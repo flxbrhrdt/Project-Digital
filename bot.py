@@ -69,28 +69,24 @@ def search(depth, board, myTurn):
                 temp = makeMove(column, board, myTurn)
                 # create list of matrix
                 legal_moves.append(temp)
-        print('d ',depth,' l ',legal_moves, ' winning ', winning(board))
         # BASECASE (if depth == 0, game tied or someone wins)
         if depth == 0 or len(legal_moves) == 0 or winning(board)[0]:
             # return value(board, curr_player) from winning
-            print(board)
             return scoring(board, 3, myTurn)*(depth+1)
         # RECURSION
         elif myTurn:  #Maximizing Player
-            print('me')
             score = -99999999
             for child in legal_moves:
                     # start recursion, check if minus is necessary
                 score = max(score, search(depth-1, child, False))
-                return score
+            return score
         elif not myTurn:  #Minimizing Player
-            print('not me')
             score = 99999999
             for child in legal_moves:
                 # start recursion, check if minus is necessary
                 score = min(score, search(depth-1, child, True))
                 # score negative or positive????
-                return score
+            return score
 
 
 def best_option(possible_moves):
@@ -146,7 +142,10 @@ def bot_player(depth, board, myTurn=True):
     >>> bot_player(depth, board, myTurn=True)
 
     """
-    return simulate_keypress(choose_options(depth, board, myTurn))
+    print('thinking')
+    s = simulate_keypress(choose_options(depth, board, myTurn))
+    print('done')
+    return s
 
-a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 1 0 0')
-print(choose_options(4, a, True))
+#a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 1 0 0')
+#print(choose_options(4, a, True))
