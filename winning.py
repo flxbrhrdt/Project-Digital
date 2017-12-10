@@ -1,6 +1,7 @@
 #Author: Siena and Felix
 #Date: 11/7/2017
 #Determines if game is won and by who when given a matrix
+#Scoring scores matrix, checking for wins and streaks
 import numpy
 
 #TODO check about range of functions
@@ -18,23 +19,18 @@ def winning(matrix, connect=4):
         for x in range(rows-connect):
             if matrix[x,y] == matrix[x+1,y] == matrix[x+2,y] == matrix[x+3,y] and matrix[x,y] != 0:
                 return True, matrix[x,y]
-    #determines which side is longer for diagonal search
-    if rows>columns:
-        longer = rows
-    else:
-        longer = columns
     #diagonal
     arrayM = numpy.asarray(matrix)
-    for x in range(longer-1):
+    for x in range(columns-1):
         a = numpy.diagonal(arrayM,x-(rows-connect))
-        for i in range(len(a)-connect):
-            if a[i] == a[i+1] == a[i+2] ==a[i+3] and a[i] !=0:
+        for i in range(len(a)-connect+1):
+            if a[i] == a[i+1] == a[i+2] == a[i+3] and a[i] !=0:
                 return True, a[i]
     #reverse diagonal
     arrayM = numpy.asarray(numpy.fliplr(matrix))
-    for x in range(longer-1):
+    for x in range(columns-1):
         a = numpy.diagonal(arrayM,x-(rows-connect))
-        for i in range(len(a)-connect):
+        for i in range(len(a)-connect+1):
             if a[i] == a[i+1] == a[i+2] == a[i+3] and a[i] !=0:
                 return True, a[i]
     #tie
@@ -42,6 +38,7 @@ def winning(matrix, connect=4):
         return True, 0
     #if not won
     return False, 0
+
 
 def scoring(matrix, connect, myTurn):
     '''Scores matrix position)'''
@@ -60,59 +57,58 @@ def scoring(matrix, connect, myTurn):
     else:
         #horizontal
         for x in range(rows):
-            for y in range(columns-connect):
-                if matrix[x,y] == matrix[x,y+1] == matrix[x,y+2] == 1 and not myTurn:
+            for y in range(columns-connect+2):
+                if matrix[x,y] == matrix[x,y+1] == matrix[x,y+2] == 1:
                     score1 += 25
-                elif matrix[x,y] == matrix[x,y+1] == matrix[x,y+2] == 2 and myTurn:
+                elif matrix[x,y] == matrix[x,y+1] == matrix[x,y+2] == 2:
                     score2 += 25
-                elif matrix[x,y] == matrix[x,y+1] == 1 and not myTurn:
+            for y in range(columns-connect+3):
+                if matrix[x,y] == matrix[x,y+1] == 1:
                     score1 += 5
-                elif matrix[x,y] == matrix[x,y+1] == 2 and myTurn:
-                    score2 += 5
-        #vertical
-        for y in range(columns-connect):
-            for x in range(rows-connect):
-                if matrix[x,y] == matrix[x+1,y] == matrix[x+2,y] == 1 and not myTurn:     #add another == for Connect 4
-                    score1 += 25
-                elif matrix[x,y] == matrix[x+1,y] == matrix[x+2,y] == 2 and myTurn:     #add another == for Connect 4
-                    score2 += 25
-                elif matrix[x,y] == matrix[x+1,y] == 1 and not myTurn:     #add another == for Connect 4
-                    score1 += 5
-                elif matrix[x,y] == matrix[x+1,y] == 2 and myTurn:     #add another == for Connect 4
+                elif matrix[x,y] == matrix[x,y+1] == 2:
                     score2 += 5
 
-        #determines which side is longer for diagonal search
-        if rows>columns:
-            longer = rows
-        else:
-            longer = columns
+        #vertical
+        for y in range(columns):
+            for x in range(rows-connect+2):
+                if matrix[x,y] == matrix[x+1,y] == matrix[x+2,y] == 1:     #add another == for Connect 4
+                    score1 += 25
+                elif matrix[x,y] == matrix[x+1,y] == matrix[x+2,y] == 2:     #add another == for Connect 4
+                    score2 += 25
+            for x in range(rows-connect+3):
+                if matrix[x,y] == matrix[x+1,y] == 1:     #add another == for Connect 4
+                    score1 += 5
+                elif matrix[x,y] == matrix[x+1,y] == 2:     #add another == for Connect 4
+                    score2 += 5
         #diagonal
         arrayM = numpy.asarray(matrix)
-        for x in range(longer-1):
-            a = numpy.diagonal(arrayM,x-(rows-connect+1))
-            for i in range(len(a)-connect+1):
-                if a[i] == a[i+1] == a[i+2] == 1 and not myTurn:
+        for x in range(columns-1):
+            a = numpy.diagonal(arrayM,x-(rows-connect))
+            for i in range(len(a)-connect+2):
+                if a[i] == a[i+1] == a[i+2] == 1:
                     score1 += 25
-                elif a[i] == a[i+1] == a[i+2] == 2 and myTurn:
+                elif a[i] == a[i+1] == a[i+2] == 2:
                     score2 += 25
-                elif a[i] == a[i+1] == 1 and not myTurn:
+            for i in range(len(a)-connect+3):
+                if a[i] == a[i+1] == 1:
                     score1 += 5
-                elif a[i] == a[i+1] == 2 and myTurn:
+                elif a[i] == a[i+1] == 2:
                     score2 += 5
         #reverse diagonal
         arrayM = numpy.asarray(numpy.fliplr(matrix))
-        for x in range(longer-1):
-            a = numpy.diagonal(arrayM,x-(rows-connect+1))
-            for i in range(len(a)-connect+1):
-                if a[i] == a[i+1] == a[i+2]  == 1 and not myTurn:
+        for x in range(columns-1):
+            a = numpy.diagonal(arrayM,x-(rows-connect))
+            for i in range(len(a)-connect+2):
+                if a[i] == a[i+1] == a[i+2]  == 1:
                     score1 += 25
-                elif a[i] == a[i+1] == a[i+2] == 2 and myTurn:
+                elif a[i] == a[i+1] == a[i+2] == 2:
                     score2 += 25
-                elif a[i] == a[i+1] == 1 and not myTurn:
+            for i in range(len(a)-connect+3):
+                if a[i] == a[i+1] == 1:
                     score1 += 5
-                elif a[i] == a[i+1] == 2 and myTurn:
+                elif a[i] == a[i+1] == 2:
                     score2 += 5
-    if not myTurn:
-        return score1-score2
-    elif myTurn:
-        return score2-score1
+    return score1-score2
+
+#a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0')
+#print(a,scoring(a,4,True))
