@@ -67,18 +67,20 @@ def search(depth, board, myTurn):
             if isLegalMove(column, board):
                 # make the move in column i for curr_player
                 temp = makeMove(column, board, myTurn)
+                print(temp)
                 # create list of matrix
                 legal_moves.append(temp)
         # BASECASE (if depth == 0, game tied or someone wins)
         if depth == 0 or len(legal_moves) == 0 or winning(board)[0]:
             # return value(board, curr_player) from winning
-            return scoring(board, 3, myTurn)*(depth+1)
+            return scoring(board, myTurn)*(depth+1)
         # RECURSION
         elif myTurn:  #Maximizing Player
             score = -99999999
             for child in legal_moves:
                     # start recursion, check if minus is necessary
                 score = max(score, search(depth-1, child, False))
+            print(score)
             return score
         elif not myTurn:  #Minimizing Player
             score = 99999999
@@ -127,6 +129,7 @@ def choose_options(depth, board, myTurn=True):
             # assign overall score (value, recurs function) to every column (key)
             # check if we can win during the next draw
             possible_moves[column] = search(depth-1, temp, not myTurn)
+    print(possible_moves)
     # return the key(column) for the best score
     return best_option(possible_moves)
 
@@ -147,5 +150,7 @@ def bot_player(depth, board, myTurn=True):
     print('done')
     return s
 
-#a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 1 0 0')
-#print(choose_options(4, a, True))
+a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 1 0')
+# print(choose_options(4, a, True))
+# simulate_keypress(choose_options(8, a, True))
+bot_player(4, a)
