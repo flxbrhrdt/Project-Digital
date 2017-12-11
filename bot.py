@@ -70,26 +70,32 @@ def search(depth, board, myTurn):
                 print(temp)
                 # create list of matrix
                 legal_moves.append(temp)
-        # BASECASE (if depth == 0, game tied or someone wins)
+        ### BASECASE (if depth == 0, game tied or someone wins)
         if depth == 0 or len(legal_moves) == 0 or winning(board)[0]:
             # return value(board, curr_player) from winning
             return scoring(board, myTurn)*(depth+1)
-        # RECURSION
+        #### RECURSION
         elif myTurn:  #Maximizing Player
             score = -99999999
             for child in legal_moves:
-                    # start recursion, check if minus is necessary
-                score = max(score, search(depth-1, child, False))
-            print(score)
+                val = search(depth-1, child, False)
+                score = max(score, val)
+                # print(score)
             return score
         elif not myTurn:  #Minimizing Player
-            score = 99999999
+            score = -99999999
             for child in legal_moves:
-                # start recursion, check if minus is necessary
-                score = min(score, search(depth-1, child, True))
-                # score negative or positive????
+                val = search(depth-1, child, True)
+                score = max(score, val)
             return score
 
+        # Try 2 ----------------------------------------------
+        # score = -99999999
+        # for child in legal_moves:
+        #     val = -search(depth-1, child, False)
+        #     score = max(score, val)
+        #     # print(score)
+        # return score
 
 def best_option(possible_moves):
     """
@@ -126,12 +132,23 @@ def choose_options(depth, board, myTurn=True):
         if isLegalMove(column, board):
             # make the move in column  for curr_player
             temp = makeMove(column, board, myTurn)
+            print(column)
+            print(temp)
+            # print(winning(temp))
+            # a = winning(temp)[0]
+            # b = winning(temp)[1]
+            # # if a == True:
+            #     if b==1 or b==2:
+            #         print('You won')
             # assign overall score (value, recurs function) to every column (key)
             # check if we can win during the next draw
-            possible_moves[column] = search(depth-1, temp, not myTurn)
+            # possible_moves[column] = search(depth-1, temp, not myTurn)
+            possible_moves[column] = scoring(board, myTurn)
+            # possible_moves[column] = winning(board)[0]
+    print
     print(possible_moves)
     # return the key(column) for the best score
-    return best_option(possible_moves)
+    # return best_option(possible_moves)
 
 def simulate_keypress(keypress):
     """simulates keypress"""
@@ -150,7 +167,9 @@ def bot_player(depth, board, myTurn=True):
     print('done')
     return s
 
-a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 1 0')
-# print(choose_options(4, a, True))
+a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 2; 0 0 0 0 0 2 1; 0 0 0 0 0 2 1; 0 0 1 1 1 2 2')
+print(choose_options(4, a))
 # simulate_keypress(choose_options(8, a, True))
-bot_player(4, a)
+# bot_player(4, a)
+
+# print(scoring(a, True))
