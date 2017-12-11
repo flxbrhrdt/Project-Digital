@@ -16,11 +16,13 @@ def winning(matrix, connect=4):
     for x in range(rows):
         for y in range(columns-connect):
             if matrix[x,y] == matrix[x,y+1] == matrix[x,y+2] == matrix[x,y+3] and matrix[x,y] != 0:
+                # print('horiz')
                 return True, matrix[x,y]
     #vertical
     for y in range(columns):
         for x in range(rows-connect+1):
             if matrix[x,y] == matrix[x+1,y] == matrix[x+2,y] == matrix[x+3,y] and matrix[x,y] != 0:
+                # print('vertical')
                 return True, matrix[x,y]
     #diagonal
     arrayM = numpy.asarray(matrix)
@@ -35,6 +37,7 @@ def winning(matrix, connect=4):
         a = numpy.diagonal(arrayM,x-(rows-connect))
         for i in range(len(a)-connect):
             if a[i] == a[i+1] == a[i+2] == a[i+3] and a[i] !=0:
+                # print('diag')
                 return True, a[i]
     #tie
     if numpy.count_nonzero(arrayM) == rows*columns:
@@ -95,7 +98,8 @@ def scoring(matrix, myTurn, connect=4):
                     # print(score2)
         #diagonal
         arrayM = numpy.asarray(matrix)
-        for x in range(columns-1):
+        # for x in range(columns-1):
+        for x in range(columns):
             a = numpy.diagonal(arrayM,x-(rows-connect))
             for i in range(len(a)-connect+2):
                 if a[i] == a[i+1] == a[i+2] == 1:
@@ -122,9 +126,11 @@ def scoring(matrix, myTurn, connect=4):
                 elif a[i] == a[i+1] == 2:
                     score2 += 50
 
-    return score1-score2
+    # return score1-score2 #OLD
+    return score2-score1
 
-a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 2 0; 0 0 0 0 0 2 2; 0 0 0 0 0 1 2; 0 0 0 0 0 2 1; 0 0 1 1 1 2 1')
+a = numpy.matrix('0 0 0 0 0 1 0; 0 0 0 0 1 0 0; 0 0 0 1 0 1 1; 0 0 1 0 2 2 1; 0 1 0 0 0 2 0; 1 0 1 1 1 2 2')
 # a = numpy.matrix('1 1 2 1 2 1 2; 1 2 1 1 2 2 1; 3 3 3 3 3 3 3; 2 1 2 1 2 1 2; 1 2 1 2 1 2 1; 1 2 1 2 1 2 1')
-# print(scoring(a, True))
+print(a)
+print(scoring(a, True))
 # print(winning(a))
