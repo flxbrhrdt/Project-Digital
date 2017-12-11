@@ -132,23 +132,17 @@ def choose_options(depth, board, myTurn=True):
         if isLegalMove(column, board):
             # make the move in column  for curr_player
             temp = makeMove(column, board, myTurn)
-            print(column)
-            print(temp)
-            # print(winning(temp))
-            # a = winning(temp)[0]
-            # b = winning(temp)[1]
-            # # if a == True:
-            #     if b==1 or b==2:
-            #         print('You won')
+            # print(column)
+            # print(temp)
+            if winning(temp)[1] == 2:
+                return column
             # assign overall score (value, recurs function) to every column (key)
-            # check if we can win during the next draw
             # possible_moves[column] = search(depth-1, temp, not myTurn)
-            possible_moves[column] = scoring(board, myTurn)
-            # possible_moves[column] = winning(board)[0]
-    print
+            # Possibility : depth 0 -----------------------------------
+            possible_moves[column] = scoring(temp, myTurn)
     print(possible_moves)
     # return the key(column) for the best score
-    # return best_option(possible_moves)
+    return best_option(possible_moves)
 
 def simulate_keypress(keypress):
     """simulates keypress"""
@@ -167,7 +161,7 @@ def bot_player(depth, board, myTurn=True):
     print('done')
     return s
 
-a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 2; 0 0 0 0 0 2 1; 0 0 0 0 0 2 1; 0 0 1 1 1 2 2')
+a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 2; 0 0 0 0 0 2 1; 0 0 0 0 0 1 1; 0 0 2 2 2 1 1')
 print(choose_options(4, a))
 # simulate_keypress(choose_options(8, a, True))
 # bot_player(4, a)

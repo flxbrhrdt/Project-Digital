@@ -49,14 +49,15 @@ def scoring(matrix, myTurn, connect=4):
     b = winning(matrix, connect)[1]
     score1 = 0
     score2 = 0
-    if a == True:
-        if b == 1:
-            score1 = -100000
-            return score1
-            # print(score1)
-        elif b == 2:
-            score2 = 100000
-            return score1
+    # if a == True:
+    # if condition:
+    if b == 1:
+        score1 = -100000
+        return score1
+        # print(score1)
+    elif b == 2:
+        score2 = 100000
+        return score2
             # print(score1)
     else:
         #horizontal
@@ -64,34 +65,34 @@ def scoring(matrix, myTurn, connect=4):
             for y in range(columns-connect+2): #3 in a row
                 if matrix[x,y] == matrix[x,y+1] == matrix[x,y+2] == 1:
                     score1 += 2500
-                    print(score1)
+                    # print(score1)
                 elif matrix[x,y] == matrix[x,y+1] == matrix[x,y+2] == 2:
                     score2 += 2500
-                    print(score2)
+                    # print(score2)
             for y in range(columns-connect+3): #2 in a row
                 if matrix[x,y] == matrix[x,y+1] == 1:
                     score1 += 50
-                    print(score1)
+                    # print(score1)
                 elif matrix[x,y] == matrix[x,y+1] == 2:
                     score2 += 50
-                    print(score2)
+                    # print(score2)
 
         #vertical -- Doesn't look at the last row
         for y in range(columns):
             for x in range(rows-connect+2):
                 if matrix[x,y] == matrix[x+1,y] == matrix[x+2,y] == 1:     #add another == for Connect 4
                     score1 += 2500
-                    print(score1)
+                    # print(score1)
                 elif matrix[x,y] == matrix[x+1,y] == matrix[x+2,y] == 2:     #add another == for Connect 4
                     score2 += 2500
-                    print(score2)
+                    # print(score2)
             for x in range(rows-connect+3):
                 if matrix[x,y] == matrix[x+1,y] == 1:     #add another == for Connect 4
                     score1 += 50
-                    print(score1)
+                    # print(score1)
                 elif matrix[x,y] == matrix[x+1,y] == 2:     #add another == for Connect 4
                     score2 += 50
-                    print(score2)
+                    # print(score2)
         #diagonal
         arrayM = numpy.asarray(matrix)
         for x in range(columns-1):
@@ -120,10 +121,10 @@ def scoring(matrix, myTurn, connect=4):
                     score1 += 50
                 elif a[i] == a[i+1] == 2:
                     score2 += 50
-        # singles
 
     return score1-score2
 
-a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 2 2; 0 0 0 0 0 2 1; 0 0 0 0 0 2 1; 0 0 1 1 1 2 2')
+a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 2 0; 0 0 0 0 0 2 2; 0 0 0 0 0 1 1; 0 0 0 0 0 2 1; 0 0 2 2 2 2 1')
 # a = numpy.matrix('1 1 2 1 2 1 2; 1 2 1 1 2 2 1; 3 3 3 3 3 3 3; 2 1 2 1 2 1 2; 1 2 1 2 1 2 1; 1 2 1 2 1 2 1')
-print(scoring(a,4,True))
+print(scoring(a, True))
+# print(winning(a))
