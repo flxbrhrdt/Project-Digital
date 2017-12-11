@@ -73,7 +73,7 @@ def search(depth, board, myTurn):
         ### BASECASE (if depth == 0, game tied or someone wins)
         if depth == 0 or len(legal_moves) == 0 or winning(board)[0]:
             # return value(board, curr_player) from winning
-            return scoring(board, myTurn)*(depth+1)
+            return scoring(board, myTurn) #*(depth+1)
         #### RECURSION
         elif myTurn:  #Maximizing Player
             score = -99999999
@@ -83,10 +83,10 @@ def search(depth, board, myTurn):
                 # print(score)
             return score
         elif not myTurn:  #Minimizing Player
-            score = -99999999
+            score = 99999999
             for child in legal_moves:
                 val = search(depth-1, child, True)
-                score = max(score, val)
+                score = min(score, val)
             return score
 
         # Try 2 ----------------------------------------------
@@ -135,11 +135,12 @@ def choose_options(depth, board, myTurn=True):
             # print(column)
             # print(temp)
             if winning(temp)[1] == 2:
-                return column
-            # assign overall score (value, recurs function) to every column (key)
-            # possible_moves[column] = search(depth-1, temp, not myTurn)
-            # Possibility : depth 0 -----------------------------------
-            possible_moves[column] = scoring(temp, myTurn)
+                print('winning')
+                return str(column)
+            #### assign overall score (value, recurs function) to every column (key)
+            possible_moves[column] = search(depth-1, temp, False)
+            #### Possibility : depth 0 -----------------------------------
+            # possible_moves[column] = scoring(temp, myTurn)
     print(possible_moves)
     # return the key(column) for the best score
     return best_option(possible_moves)
@@ -157,13 +158,16 @@ def bot_player(depth, board, myTurn=True):
 
     """
     print('thinking')
-    s = simulate_keypress(choose_options(depth, board, myTurn))
+    s = simulate_keypress(choose_options(depth, board, False))
     print('done')
     return s
 
-a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 2; 0 0 0 0 0 2 1; 0 0 0 0 0 1 1; 0 0 2 2 2 1 1')
+### winning next draw
+# a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 2; 0 0 0 0 0 2 1; 0 0 0 0 0 1 1; 0 0 2 2 2 1 1')
+a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 2 0; 0 0 0 0 0 2 2; 0 0 0 0 0 1 2; 0 0 0 0 0 2 1; 0 0 0 1 1 2 1')
 print(choose_options(4, a))
+print(a)
 # simulate_keypress(choose_options(8, a, True))
-# bot_player(4, a)
+# bot_player(1, a)
 
 # print(scoring(a, True))

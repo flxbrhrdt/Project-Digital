@@ -7,6 +7,9 @@ import numpy
 #TODO check about range of functions
 
 def winning(matrix, connect=4):
+    """Check if player 1 or 2 wins with the board
+    return tuple with (winning true/false, player who won)
+    """
     rows = matrix.shape[0]
     columns = matrix.shape[1]
     #horizontal
@@ -41,7 +44,7 @@ def winning(matrix, connect=4):
 
 
 def scoring(matrix, myTurn, connect=4):
-    '''Scores matrix position)'''
+    """Scores matrix position"""
     #TODO: add myTurn
     rows = matrix.shape[0]
     columns = matrix.shape[1]
@@ -49,16 +52,13 @@ def scoring(matrix, myTurn, connect=4):
     b = winning(matrix, connect)[1]
     score1 = 0
     score2 = 0
-    # if a == True:
-    # if condition:
+    # check if player 1 or 2 wins
     if b == 1:
         score1 = -100000
         return score1
-        # print(score1)
     elif b == 2:
         score2 = 100000
         return score2
-            # print(score1)
     else:
         #horizontal
         for x in range(rows):
@@ -124,7 +124,7 @@ def scoring(matrix, myTurn, connect=4):
 
     return score1-score2
 
-a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 2 0; 0 0 0 0 0 2 2; 0 0 0 0 0 1 1; 0 0 0 0 0 2 1; 0 0 2 2 2 2 1')
+a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 2 0; 0 0 0 0 0 2 2; 0 0 0 0 0 1 2; 0 0 0 0 0 2 1; 0 0 1 1 1 2 1')
 # a = numpy.matrix('1 1 2 1 2 1 2; 1 2 1 1 2 2 1; 3 3 3 3 3 3 3; 2 1 2 1 2 1 2; 1 2 1 2 1 2 1; 1 2 1 2 1 2 1')
-print(scoring(a, True))
+# print(scoring(a, True))
 # print(winning(a))
