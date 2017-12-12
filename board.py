@@ -4,6 +4,7 @@ import functions
 import sys
 import winning
 import fake_bot
+import bot
 
 class Board:
     def __init__(self, rows, columns, piecesize=100):
@@ -45,7 +46,7 @@ width, height = 700 , 600           #screen dimensions for connect 4
 black = (0,0,0)
 player = 1                          #Player 1 ges to start first
 Time = 0                            #Timer Variable for delay
-win = functions.winning(gameboard.matrix,3)   #winning function to check if game has been won
+win = winning.winning(gameboard.matrix)   #winning function to check if game has been won
 
 
 ### Initializing game environment
@@ -124,13 +125,8 @@ while running:
                 endscreen = True
 
             if player == 2:
-<<<<<<< HEAD
-                fake_bot.fake_player(4, gameboard.matrix)
-                #TODO add bot
-=======
                 # fake_bot.fake_player(4, gameboard.matrix)
-                bot.bot_player(4, gameboard.matrix)
->>>>>>> 4359290cf2ac04f6b59147eed41ce455807fde86
+                bot.bot_player(1, gameboard.matrix)
 
             win = winning.winning(gameboard.matrix)
             if win[0] == True:

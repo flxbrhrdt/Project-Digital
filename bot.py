@@ -67,7 +67,7 @@ def search(depth, board, myTurn):
             if isLegalMove(column, board):
                 # make the move in column i for curr_player
                 temp = makeMove(column, board, myTurn)
-                print(temp)
+                # print(temp)
                 # create list of matrix
                 legal_moves.append(temp)
         ### BASECASE (if depth == 0, game tied or someone wins)
@@ -111,7 +111,7 @@ def best_option(possible_moves):
     """
     # find the best option (max score)
     best_option = max(possible_moves, key=possible_moves.get)
-    return str(best_option)
+    return str(best_option+1)
 
 
 def choose_options(depth, board, myTurn=True):
@@ -135,7 +135,7 @@ def choose_options(depth, board, myTurn=True):
             # print(column)
             # print(temp)
             if winning(temp)[1] == 2:
-                print('winning')
+                # print('winning')
                 return str(column)
             if depth == 0:
                 possible_moves[column] = scoring(temp, True)
@@ -158,16 +158,15 @@ def bot_player(depth, board, myTurn=True):
 
     """
     print('thinking')
-    s = simulate_keypress(choose_options(depth, board, False))
+    col = choose_options(depth, board, False)
+    s = simulate_keypress(col)
     print('done')
     return s
 
 ### winning next draw
 # a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 2; 0 0 0 0 0 2 1; 0 0 0 0 0 1 1; 0 0 2 2 2 1 1')
-a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 2 0; 0 0 0 0 0 2 2; 0 0 0 0 0 1 2; 0 0 0 0 0 2 1; 0 0 0 1 1 2 1')
+a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 1 0 0 0')
 # print(choose_options(4, a))
 # print(a)
-# simulate_keypress(choose_options(8, a, True))
-bot_player(4, a)
-
-# print(scoring(a, True))
+# simulate_keypress(c0hoose_options(8, a, True))
+bot_player(1, a)

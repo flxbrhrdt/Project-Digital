@@ -129,8 +129,8 @@ def scoring(matrix, myTurn, connect=4):
     # return score1-score2 #OLD
     return score2-score1
 
-a = numpy.matrix('0 0 0 0 0 1 0; 0 0 0 0 1 0 0; 0 0 0 1 0 1 1; 0 0 1 0 2 2 1; 0 1 0 0 0 2 0; 1 0 1 1 1 2 2')
+# a = numpy.matrix('0 0 0 0 0 1 0; 0 0 0 0 1 0 0; 0 0 0 1 0 1 1; 0 0 1 0 2 2 1; 0 1 0 0 0 2 0; 1 0 1 1 1 2 2')
 # a = numpy.matrix('1 1 2 1 2 1 2; 1 2 1 1 2 2 1; 3 3 3 3 3 3 3; 2 1 2 1 2 1 2; 1 2 1 2 1 2 1; 1 2 1 2 1 2 1')
-print(a)
-print(scoring(a, True))
+# print(a)
+# print(scoring(a, True))
 # print(winning(a))
