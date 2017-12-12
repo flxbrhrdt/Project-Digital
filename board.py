@@ -126,7 +126,8 @@ while running:
 
             if player == 2:
                 # fake_bot.fake_player(4, gameboard.matrix)
-                bot.bot_player(1, gameboard.matrix)
+                board = gameboard.matrix.copy()
+                bot.bot_player(2, board)
 
             win = winning.winning(gameboard.matrix)
             if win[0] == True:

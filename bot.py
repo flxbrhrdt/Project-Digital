@@ -106,11 +106,17 @@ def best_option(possible_moves):
     if no option given, choose the middle column(3)
 
     OUTPUT: column (integer) were we should place our piece
-    >>> best_option({1: 3, 2: 6, 3: 100})
-    '3'
     """
+    best_score = -99999999
+    best_move = None
+    moves = possible_moves.items()
+    random.shuffle(list(moves))
+    for move, score in moves:
+        if score >= best_score:
+            best_score = score
+            best_option = move
     # find the best option (max score)
-    best_option = max(possible_moves, key=possible_moves.get)
+    # best_option = max(possible_moves, key=possible_moves.get)
     return str(best_option+1)
 
 
