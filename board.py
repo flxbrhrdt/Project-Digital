@@ -140,20 +140,6 @@ while running:
                 running = False
                 endscreen = True
 
-<<<<<<< HEAD
-=======
-            # if player == 2:
-            #     # fake_bot.fake_player(4, gameboard.matrix)
-            #     board = gameboard.matrix.copy()
-            #     bot.bot_player(2, board)
-
-            win = winning.winning(gameboard.matrix)
-            if win[0] == True:
-                running = False
-                endscreen = True
->>>>>>> 1da900d2d474d0ebb708ade8e1428038dd2fbd68
-
-
 
     if event.type == pygame.QUIT:
         pygame.quit()

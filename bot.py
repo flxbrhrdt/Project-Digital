@@ -135,7 +135,7 @@ def choose_options(depth, board, myTurn=True):
             # print(temp)
             if winning(temp)[1] == 2:
                 # print('winning')
-                return str(column)
+                return str(column+1)
             if depth == 0:
                 possible_moves[column] = scoring(temp, True)
             #### assign overall score (value, recurs function) to every column (key)
@@ -164,7 +164,7 @@ def bot_player(depth, board, myTurn=True):
     # return col
     return s
 
-# a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 2; 0 0 0 0 0 2 1; 0 0 0 0 0 1 1; 0 0 2 2 2 1 1')
+a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 2 1; 0 0 0 0 0 1 1; 0 0 2 2 2 2 2')
 # a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 1 0 0 0')
 # print(choose_options(4, a))
 # print(a)
