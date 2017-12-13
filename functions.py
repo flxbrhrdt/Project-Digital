@@ -1,3 +1,7 @@
+#Author: John, Leo, & Viktoria
+#Project: Connect 4
+#Date: 12/12/2017
+
 import numpy
 import pygame
 

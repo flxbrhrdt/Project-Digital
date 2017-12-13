@@ -1,3 +1,7 @@
+#Author: John, Leo, & Viktoria
+#Project: Connect 4
+#Date: 12/12/2017
+
 import pygame
 import numpy
 import functions
@@ -103,7 +107,7 @@ while running:
     for event in pygame.event.get():
 
             if event.type == pygame.KEYDOWN:
-                
+
                 if event.key == pygame.K_1:
                     functions.look_through_rows(gameboard.matrix, 0, player)
                     print('keypress')
