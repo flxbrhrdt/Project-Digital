@@ -126,11 +126,10 @@ def scoring(matrix, myTurn, connect=4):
                 elif a[i] == a[i+1] == 2:
                     score2 += 50
 
-    # return score1-score2 #OLD
     return score2-score1
 
-a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 1 0 0 2; 0 0 2 0 1 0 2; 0 2 0 0 0 1 2; 2 0 1 2 1 2 1')
+# a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 1 0 0 2; 0 0 2 0 1 0 2; 0 2 0 0 0 1 2; 2 0 1 2 1 2 1')
 # a = numpy.matrix('1 1 2 1 2 1 2; 1 2 1 1 2 2 1; 3 3 3 3 3 3 3; 2 1 2 1 2 1 2; 1 2 1 2 1 2 1; 1 2 1 2 1 2 1')
-print(a)
+# print(a)
 # print(scoring(a, True))
-print(winning(a))
+# print(winning(a))

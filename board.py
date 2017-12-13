@@ -56,8 +56,6 @@ pygame.display.set_caption('Connect 4')
 #screen.fill(background_color)
 
 
-
-
 intro = True
 running = False
 endscreen = False
@@ -89,6 +87,11 @@ while running:
     gameboard.draw(screen)
     pygame.display.update()
 
+    if player == 2:
+        # temp_board = gameboard.matrix.copy()
+        # print(temp_board)
+        # fake_bot.fake_player(4, temp_board)
+        bot.bot_player(4, gameboard.matrix.copy())
 
     for event in pygame.event.get():
 
@@ -97,18 +100,25 @@ while running:
                 # functions.look_through_rows(gameboard.matrix, functions.pygame_key_reader(c) ,player)
                 if event.key == pygame.K_1:
                     functions.look_through_rows(gameboard.matrix, 0, player)
+                    print('keypress')
                 if event.key == pygame.K_2:
                     functions.look_through_rows(gameboard.matrix, 1, player)
+                    print('keypress')
                 if event.key == pygame.K_3:
                     functions.look_through_rows(gameboard.matrix, 2, player)
+                    print('keypress')
                 if event.key == pygame.K_4:
                     functions.look_through_rows(gameboard.matrix, 3, player)
+                    print('keypress')
                 if event.key == pygame.K_5:
                     functions.look_through_rows(gameboard.matrix, 4, player)
+                    print('keypress')
                 if event.key == pygame.K_6:
                     functions.look_through_rows(gameboard.matrix, 5, player)
+                    print('keypress')
                 if event.key == pygame.K_7:
                     functions.look_through_rows(gameboard.matrix, 6, player)
+                    print('keypress')
                 print(gameboard.matrix)
 
                 if player == 1:
@@ -124,15 +134,6 @@ while running:
                 running = False
                 endscreen = True
 
-            if player == 2:
-                # fake_bot.fake_player(4, gameboard.matrix)
-                board = gameboard.matrix.copy()
-                bot.bot_player(2, board)
-
-            win = winning.winning(gameboard.matrix)
-            if win[0] == True:
-                running = False
-                endscreen = True
 
     if event.type == pygame.QUIT:
         pygame.quit()

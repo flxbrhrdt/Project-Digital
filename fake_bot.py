@@ -1,4 +1,4 @@
-# import pygame
+import pygame
 import random
 # import sys
 from pynput.keyboard import Key, Controller
@@ -25,6 +25,6 @@ def fake_player(depth, board, myTurn=True):
     """
     return fake_keypress(fake_choice())
 
-fake_player(4, 2)
+# fake_player(4, 2)
 # print(fake_choice())
 # fake_keypress('4')

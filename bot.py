@@ -89,14 +89,6 @@ def search(depth, board, myTurn):
                 score = min(score, val)
             return score
 
-        # Try 2 ----------------------------------------------
-        # score = -99999999
-        # for child in legal_moves:
-        #     val = -search(depth-1, child, False)
-        #     score = max(score, val)
-        #     # print(score)
-        # return score
-
 def best_option(possible_moves):
     """
     INPUT: options with score (dict)
@@ -115,9 +107,10 @@ def best_option(possible_moves):
         if score >= best_score:
             best_score = score
             best_option = move
-    # find the best option (max score)
     # best_option = max(possible_moves, key=possible_moves.get)
+    # return str(best_option+1)
     return str(best_option+1)
+
 
 
 def choose_options(depth, board, myTurn=True):
@@ -163,16 +156,16 @@ def bot_player(depth, board, myTurn=True):
     >>> bot_player(depth, board, myTurn=True)
 
     """
-    print('thinking')
-    col = choose_options(depth, board, False)
+    # print('thinking')
+    # col = int(choose_options(depth, board))
+    col = choose_options(depth, board)
     s = simulate_keypress(col)
-    print('done')
+    # print('done')
+    # return col
     return s
 
-### winning next draw
 # a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 2; 0 0 0 0 0 2 1; 0 0 0 0 0 1 1; 0 0 2 2 2 1 1')
-a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 1 0 0 0')
+# a = numpy.matrix('0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 0 0 0 0; 0 0 0 1 0 0 0')
 # print(choose_options(4, a))
 # print(a)
-# simulate_keypress(c0hoose_options(8, a, True))
-bot_player(1, a)
+# print(bot_player(2, a))
