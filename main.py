@@ -3,7 +3,6 @@ import numpy
 import functions
 import sys
 import winning
-import fake_bot
 import bot
 
 class Board:
@@ -94,16 +93,17 @@ while running:
     pygame.display.update()
 
     if player == 2:
-        # temp_board = gameboard.matrix.copy()
-        # print(temp_board)
-        # fake_bot.fake_player(4, temp_board)
         bot.bot_player(4, gameboard.matrix.copy())
+        win = winning.winning(gameboard.matrix)
+        if win[0] == True:
+            running = False
+            endscreen = True
+
 
     for event in pygame.event.get():
 
             if event.type == pygame.KEYDOWN:
-                # c = pygame.key.get_pressed()
-                # functions.look_through_rows(gameboard.matrix, functions.pygame_key_reader(c) ,player)
+                
                 if event.key == pygame.K_1:
                     functions.look_through_rows(gameboard.matrix, 0, player)
                     print('keypress')
@@ -161,11 +161,18 @@ while endscreen:
                 pygame.quit()
                 quit()
 
-        basicfont = pygame.font.SysFont(None, 20)
-        text = basicfont.render('Congrats! Player %.2d'%(win[1]) + ' Has Won', True, (0, 0, 255), (255, 255, 255))
-        textrect.centerx = 875
-        textrect.centery = 250
+        screen.fill(background_color) #set up background
+        gameboard.draw(screen)
+
+        basicfont = pygame.font.SysFont(None, 40)
+        text = basicfont.render('Congrats!', True, (0, 0, 255), (255, 255, 255))
+        textrect.centerx = 900
+        textrect.centery = 200
         screen.blit(text, textrect)
+        text1 = text.get_rect()
+        text1 = basicfont.render('Player %.2d'%(win[1]) + ' Has Won', True, (0, 0, 255), (255, 255, 255))
+        screen.blit(text1, (725,230))
+
 
     pygame.display.update()
 
