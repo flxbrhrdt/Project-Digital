@@ -1,5 +1,5 @@
-#Author: John, Leo, & Viktoria
-#Project: Connect 4
+#Author: John, Leo, & Viktoria, Sienna, Felix
+#Project: Connect 4 Simulation
 #Date: 12/12/2017
 
 import pygame
@@ -59,10 +59,11 @@ pygame.display.set_caption('Connect 4')
 #screen.fill(background_color)
 
 
-intro = True
-running = False
-endscreen = False
+intro = True      #Intro screen
+running = False   #Main game screen
+endscreen = False #End game screen
 
+"Intro display renders the text center of page"
 while intro:
     screen.fill(black)
     font = pygame.font.SysFont("Lucida Sans Typewriter", 13)
@@ -85,9 +86,11 @@ while intro:
                 intro = False
                 running = True
 
+"Main game screen"
 while running:
     screen.fill(background_color) #set up background
-    gameboard.draw(screen)
+    gameboard.draw(screen)        #draws the game board
+    #Displays who's turn it is (Player 1 or bot)
     basicfont = pygame.font.SysFont(None, 45)
     text = basicfont.render('Player %.2d'%(player) + "'s turn", True, (0, 0, 0), (255, 255, 255))
     textrect = text.get_rect()
@@ -96,8 +99,10 @@ while running:
     screen.blit(text, textrect)
     pygame.display.update()
 
+    #If it is players 2's turn, we run the bot function
     if player == 2:
         bot.bot_player(4, gameboard.matrix.copy())
+        #checks to see if the bot has won, if it has it shifts to end screen
         win = winning.winning(gameboard.matrix)
         if win[0] == True:
             running = False
@@ -107,7 +112,8 @@ while running:
     for event in pygame.event.get():
 
             if event.type == pygame.KEYDOWN:
-
+                # If key is pressed, the function looks through the matrix and puts a piece
+                # in the column that is given
                 if event.key == pygame.K_1:
                     functions.look_through_rows(gameboard.matrix, 0, player)
                     print('keypress')
@@ -131,6 +137,8 @@ while running:
                     print('keypress')
                 print(gameboard.matrix)
 
+                #Each time this function runs, the player variable alternates
+                #if player 2 is selected, the bot proceeds to go.
                 if player == 1:
                     player = 2
                 elif player == 2:
@@ -139,6 +147,7 @@ while running:
                 gameboard.draw(screen)
                 pygame.display.update()
 
+            #checks to see if the game is over once again
             win = winning.winning(gameboard.matrix)
             if win[0] == True:
                 running = False
@@ -153,8 +162,8 @@ while running:
             pygame.quit()
             quit()
 
+"End screen if the player or the bot wins"
 while endscreen:
-
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -165,7 +174,7 @@ while endscreen:
                 pygame.quit()
                 quit()
 
-        screen.fill(background_color) #set up background
+        screen.fill(background_color) #redraw background
         gameboard.draw(screen)
 
         basicfont = pygame.font.SysFont(None, 40)
