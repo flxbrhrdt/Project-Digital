@@ -41,7 +41,7 @@ print (gameboard.matrix)
 
 ### Set colors and dimensions of board
 background_color = (255,255,255)    #white
-width, height = 700 , 600           #screen dimensions for connect 4
+width, height = 1000 , 600           #screen dimensions for connect 4
 #width, height = 500, 400            #screen dimensions for connect 3
 black = (0,0,0)
 player = 1                          #Player 1 ges to start first
@@ -87,6 +87,12 @@ while intro:
 while running:
     screen.fill(background_color) #set up background
     gameboard.draw(screen)
+    basicfont = pygame.font.SysFont(None, 45)
+    text = basicfont.render('Player %.2d'%(player) + "'s turn", True, (0, 0, 0), (255, 255, 255))
+    textrect = text.get_rect()
+    textrect.centerx = 850
+    textrect.centery = screen.get_rect().centery
+    screen.blit(text, textrect)
     pygame.display.update()
 
 
@@ -124,15 +130,17 @@ while running:
                 running = False
                 endscreen = True
 
-            if player == 2:
-                # fake_bot.fake_player(4, gameboard.matrix)
-                board = gameboard.matrix.copy()
-                bot.bot_player(2, board)
+            # if player == 2:
+            #     # fake_bot.fake_player(4, gameboard.matrix)
+            #     board = gameboard.matrix.copy()
+            #     bot.bot_player(2, board)
 
             win = winning.winning(gameboard.matrix)
             if win[0] == True:
                 running = False
                 endscreen = True
+
+
 
     if event.type == pygame.QUIT:
         pygame.quit()
@@ -154,12 +162,10 @@ while endscreen:
                 pygame.quit()
                 quit()
 
-        screen.fill(background_color) #set up background
         basicfont = pygame.font.SysFont(None, 20)
-        text = basicfont.render('Congrats! Player %.2d'%(win[1]) + ' Has Won', True, (0, 0, 0), (255, 255, 255))
-        textrect = text.get_rect()
-        textrect.centerx = screen.get_rect().centerx
-        textrect.centery = screen.get_rect().centery
+        text = basicfont.render('Congrats! Player %.2d'%(win[1]) + ' Has Won', True, (0, 0, 255), (255, 255, 255))
+        textrect.centerx = 875
+        textrect.centery = 250
         screen.blit(text, textrect)
 
     pygame.display.update()
