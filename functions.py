@@ -1,11 +1,14 @@
-#Author: John, Leo, & Viktoria
-#Project: Connect 4
-#Date: 12/12/2017
+# Author: John, Leo, & Viktoria
+# Project: Connect 4
+# Date: 12/12/2017
+
+# choose a less generic name for this file
 
 import numpy
 import pygame
 
-def createboard(rows,columns):
+
+def createboard(rows, columns):
     """ Creates a string given rows and columns desired
         that can be converted into a matrix through numpy
 
@@ -20,12 +23,19 @@ def createboard(rows,columns):
             row_size = row_size + '0'
         else:
             row_size = row_size + ',0'
+    # Or:
+    #   ','.join(['0'] * rows)
     fullmatrix = ''
     for cols in range(columns):
         if cols == 0:
             fullmatrix = fullmatrix + row_size
         else:
             fullmatrix = fullmatrix + '; ' + row_size
+    # Or:
+    #   row = ','.join(['0'] * rows)
+    #   return ';'*
+    # However…see if you can construct a numpy array w/out going through
+    # a string representation first.
     return fullmatrix
 
 
@@ -52,14 +62,15 @@ def look_through_rows(board, column, player):
         count = board.shape[0] - 1
         count2 = 1
         while count >= 0 and count2 == 1:
-            if board[count,column] == 0:
-                board[count,column] = player
+            if board[count, column] == 0:
+                board[count, column] = player
                 count2 = count2 - 1
             else:
                 count = count - 1
         return board
     else:
-        print('Improper Column Given')
+        raise Exception('Improper Column Given')
+
 
 if __name__ == "__main__":
     import doctest
